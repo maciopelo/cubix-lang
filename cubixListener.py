@@ -53,12 +53,12 @@ class cubixListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by cubixParser#cubeInitalization.
-    def enterCubeInitalization(self, ctx:cubixParser.CubeInitalizationContext):
+    # Enter a parse tree produced by cubixParser#cubeInitialization.
+    def enterCubeInitialization(self, ctx:cubixParser.CubeInitializationContext):
         pass
 
-    # Exit a parse tree produced by cubixParser#cubeInitalization.
-    def exitCubeInitalization(self, ctx:cubixParser.CubeInitalizationContext):
+    # Exit a parse tree produced by cubixParser#cubeInitialization.
+    def exitCubeInitialization(self, ctx:cubixParser.CubeInitializationContext):
         pass
 
 
