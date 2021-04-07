@@ -8,7 +8,7 @@ grammar cubix;
 
 
 
-start: (expression | show)* cubeInitalization (expression | statement)* ; /* TODO */
+start: ((expression | show)* cubeInitialization Semicolon (expression | statement)*)+ EOF ;
 
 
 
@@ -21,12 +21,12 @@ show: Show LeftRoundBracket VariableName RightRoundBracket Semicolon;
 
 statement: (algorithmExecution | iterationForI | iterationForEach | show ) Semicolon;
 
-expression: (cubeInitalization | algorithmInitalization | numberInitalization | settingInitalization) Semicolon;
+expression: (cubeInitialization | algorithmInitalization | numberInitalization | settingInitalization) Semicolon;
 
 
 
 
-cubeInitalization: Cube Colon VariableName Assign CubeValue;
+cubeInitialization: Cube Colon VariableName Assign CubeValue;
 
 algorithmInitalization: Algo Colon VariableName Assign LeftSquareBracket (Move Comma)* Move RightSquareBracket;
 
@@ -95,10 +95,11 @@ Colon: ':';
 
 Loop: 'loop';
 Times: 'times';
+
 Exec: 'exec';
 Show: 'show';
-Mixed: 'mixed';
-Solved: 'solved';
+Mixed: '"mixed"';
+Solved: '"solved"';
 In: 'in';
 Using: 'using';
 
@@ -112,7 +113,7 @@ SettingValue: LeftSquareBracket (Wall Comma){5} Wall RightSquareBracket;
 
 CubeState: ( Mixed | Solved | SettingValue );
 
-CubeValue: LeftRoundBracket CubeState RightRoundBracket;
+CubeValue: 'cube' LeftRoundBracket CubeState RightRoundBracket;
 
 ArrayValue: LeftSquareBracket (VariableName Comma)* VariableName RightSquareBracket;
 
