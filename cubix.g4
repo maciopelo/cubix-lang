@@ -1,120 +1,118 @@
 grammar cubix;
 
 
-/*
-- Czy na pewno wiecej niz 1 kostka??? np. 1000 w tablicy
-- Czy iteracja/loop przed inizlaicja kostki
- */
 
 
-
-start: ((expression | show)* cubeInitialization Semicolon (expression | statement)*)+ EOF ;
-
+start: ((expression | show SEMICOLON)* cubeInitialization SEMICOLON (expression | statement)*)+ EOF ;
 
 
-algorithmExecution: VariableName Dot Exec LeftRoundBracket VariableName (Comma NUMBER)? RightRoundBracket Semicolon;
-
-show: Show LeftRoundBracket VariableName RightRoundBracket Semicolon;
-
-
-
-
-statement: (algorithmExecution | iterationForI | iterationForEach | show ) Semicolon;
-
-expression: (cubeInitialization | algorithmInitalization | numberInitalization | settingInitalization) Semicolon;
-
-
-
-
-cubeInitialization: Cube Colon VariableName Assign CubeValue;
-
-algorithmInitalization: Algo Colon VariableName Assign LeftSquareBracket (Move Comma)* Move RightSquareBracket;
-
-numberInitalization: Num Colon VariableName Assign NUMBER;
-
-settingInitalization: Setting Colon VariableName Assign SettingValue;
-
-moveInitalization: Move Colon VariableName Assign MOVEVALUE;
-
-arrayInitalization: Array LeftRoundBracket Dollar Type RightRoundBracket Colon VariableName Assign ArrayValue;
-
-
-
-
-iterationForI: Loop NUMBER Times Colon algorithmExecution;
-iterationForEach: Loop In VariableName Using VariableName Colon (algorithmExecution | show) (Plus (algorithmExecution | show))* Semicolon;
-
-
-
-
-MOVEVALUE:      'R'  | 'R2'   | 'R’'  | 'r'   | 'r2'  |  'r’' | 
-                'L'  | 'L2'   | 'L’'  | 'l'   | 'l2'  |  'l’' |  
-                'F'  | 'F2'   | 'F’'  | 'f'   | 'f2'  |  'f’' | 
-                'B'  | 'B2'   | 'B’'  | 'b'   | 'b2'  |  'b’' |  
-                'D'  | 'D2'   | 'D’'  | 'd'   | 'd2'  |  'd’' |
-                'U'  | 'U2'   | 'U’'  | 'u'   | 'u2'  |  'u’' | 
+MOVEVALUE:      'R'  | 'R2'   | 'R’'  | 'r'   | 'r2'  |  'rp' | 
+                'L'  | 'L2'   | 'L’'  | 'l'   | 'l2'  |  'lp' |  
+                'F'  | 'F2'   | 'F’'  | 'f'   | 'f2'  |  'fp' | 
+                'B'  | 'B2'   | 'B’'  | 'b'   | 'b2'  |  'bp' |  
+                'D'  | 'D2'   | 'D’'  | 'd'   | 'd2'  |  'dp' |
+                'U'  | 'U2'   | 'U’'  | 'u'   | 'u2'  |  'up' | 
                 'M'  | 'E'    | 'S'   | 'x'   | 'y'   |  'z'  ;
 
 
 
-
-COLOR: 'Red' | 'Green' | 'Blue' | 'Yellow' | 'White' | 'Orange';
-
-
-NONDIGIT: [a-z] | [A-Z];
-DIGIT: [0-9];
-NUMBER: [1-9] DIGIT*;
-
-
-/* Data types */
-Cube: 'Cube';
-Move: 'Move';
-Algo: 'Algo';
-Num: 'Num';
-Setting: 'Setting';
-Array: 'Array';
-Type: (Cube | Move | Algo | Num | Setting); 
+COLOR:  ('Red' Whitespace*)    | 
+        ('Green' Whitespace*)  | 
+        ('Blue' Whitespace*)   | 
+        ('Yellow' Whitespace*) | 
+        ('White' Whitespace*)  | 
+        ('Orange' Whitespace*) ;
 
 
-LeftRoundBracket: '(';
-RightRoundBracket: ')';
-LeftSquareBracket: '[';
-RightSquareBracket: ']';
-LeftCurlyBracket: '{';
-RightCurlyBracket: '}';
+
+CUBE: 'Cube';
+MOVE: 'Move';
+ALGO: 'Algo';
+NUM: 'Num';
+SETTING: 'Setting';
+ARRAY: 'Array';
+Type: DOLLAR (CUBE | MOVE | ALGO | NUM | SETTING);
 
 
-Comma: ',';
-Semicolon: ';';
-Dot: '.';
-Dollar: '$';
-Plus: '+';
-Assign: '=';
-Colon: ':';
+LeftRoundBracket: '(' (Whitespace | Newline)*;
+RightRoundBracket: ')' (Whitespace | Newline)*;
+LeftSquareBracket: '[' (Whitespace | Newline)*;
+RightSquareBracket: ']' (Whitespace | Newline)*;
+LeftCurlyBracket: '{' (Whitespace | Newline)*;
+RightCurlyBracket: '}' (Whitespace | Newline)*;
 
 
-Loop: 'loop';
-Times: 'times';
+COMMA: ',' (Whitespace | Newline)*;
+SEMICOLON: ';';
+DOT: '.';
+DOLLAR: '$';
+PLUS: '+';
+ASSIGN: '=';
+COLON: ':';
 
-Exec: 'exec';
-Show: 'show';
-Mixed: '"mixed"';
-Solved: '"solved"';
-In: 'in';
-Using: 'using';
+LOOP: 'loop';
+TIMES: 'times';
 
-Whitespace: [ \r\n\t] + -> skip;
+EXEC: 'exec';
+CUBECONSTRUCTOR: 'cube';
+SHOW: 'show';
+MIXED: '"mixed"';
+SOLVED: '"solved"';
+IN: 'in';
+USING: 'using';
+
+Whitespace: [ \t]+ -> skip;
+Newline: ('\r' '\n'? | '\n') -> skip;
+
+BlockComment: '|@' .*? '@|' -> skip;
+LineComment: '||' ~ [\r\n]* -> skip;
+
+VariableName: NONDIGIT+ (NONDIGIT | NUMBER)*;
+
+NONDIGIT: [a-z] | [A-Z] | '_';
+NUMBER: [0-9]+;
+
+
+statement: (algorithmExecution | iterationForI | iterationForEach | show ) SEMICOLON;
+
+
+algorithmExecution: VariableName DOT EXEC LeftRoundBracket (VariableName | MOVEVALUE) (COMMA NUMBER)? RightRoundBracket;
+
+show: SHOW LeftRoundBracket (VariableName) RightRoundBracket;
+
+iterationForI: LOOP (NUMBER | VariableName) TIMES COLON (algorithmExecution | show) (PLUS (algorithmExecution | show))*;
+
+iterationForEach: LOOP IN VariableName USING VariableName COLON (algorithmExecution | show) (PLUS (algorithmExecution | show))*;
+
+
+
+expression: (cubeInitialization | algorithmInitalization | numberInitalization | settingInitalization | moveInitalization | arrayInitalization) SEMICOLON;
+
+
+cubeInitialization: CUBE COLON VariableName ASSIGN CubeValue;
+
+algorithmInitalization: ALGO COLON VariableName ASSIGN AlgorithmValue;
+
+numberInitalization: NUM COLON VariableName ASSIGN NUMBER;
+
+settingInitalization: SETTING COLON VariableName ASSIGN SettingValue;
+
+moveInitalization: MOVE COLON VariableName ASSIGN MOVEVALUE;
+
+arrayInitalization: ARRAY LeftRoundBracket Type RightRoundBracket COLON VariableName ASSIGN ArrayValue;
+
 
 /* ----------- */
 
-VariableName: NONDIGIT+ (NONDIGIT | DIGIT)*;
 
-SettingValue: LeftSquareBracket (Wall Comma){5} Wall RightSquareBracket; 
+SettingValue: LeftSquareBracket Wall COMMA Wall COMMA Wall COMMA Wall COMMA Wall COMMA Wall RightSquareBracket; 
 
-CubeState: ( Mixed | Solved | SettingValue );
+CubeState: ( MIXED | SOLVED | VariableName );
 
-CubeValue: 'cube' LeftRoundBracket CubeState RightRoundBracket;
+AlgorithmValue: LeftSquareBracket (VariableName COMMA | MOVEVALUE COMMA)* (VariableName | MOVEVALUE) RightSquareBracket;
 
-ArrayValue: LeftSquareBracket (VariableName Comma)* VariableName RightSquareBracket;
+CubeValue: CUBECONSTRUCTOR LeftRoundBracket CubeState RightRoundBracket;
 
-Wall: COLOR Assign LeftCurlyBracket (COLOR Comma){7} COLOR RightCurlyBracket;
+ArrayValue: LeftSquareBracket (VariableName COMMA | NUMBER COMMA)* (VariableName | NUMBER) RightSquareBracket;
+
+Wall: COLOR ASSIGN LeftCurlyBracket COLOR COMMA COLOR COMMA COLOR COMMA COLOR COMMA COLOR COMMA COLOR COMMA COLOR COMMA COLOR RightCurlyBracket;
