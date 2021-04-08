@@ -1,1 +1,100 @@
+
+
+|@ Multi 
+line
+comment
+
+@|
+
+
+|| Welcome my dear friend in line comment, here you are completely safe and you can do here whatever you want but remeber one very very important fact you must not go to next line because here we dont do that, here we live in kinda "straight" way and respect this AWESOME RULE so KEEP CALM AND DO NOT PRESS ENTER
+
+
+show(var);
+
+|| cube.exec(R);
+
+|| EXPRESSIONS
+
+|@  1. Cube initialization  @|
 Cube: cube1 = cube("mixed");
+Cube: cube2 = cube("solved");
+Cube: cube3 = cube(sett);
+
+
+
+|| 1.a Another cube initialization  
+Cube: cube1 = cube(sett1);
+Cube: cube1 = cube("mixed");
+Cube: a = cube("solved");
+
+|| Cube: cube1 = cube("solved")
+
+
+
+|@  2. Setting initialization  @|
+Setting: sett1 = [
+    Red={Red,Red,Red,Red,Red,Red,Red,Red},
+    Green={Green,  Green,Green,Green,Green,Green,Green,Green},
+    Blue={Blue,Blue,  Blue,Blue,Blue,Blue,Blue,Blue},
+    
+    Yellow={Yellow,Yellow,Yellow,Yellow,Yellow,Yellow,Yellow,Yellow},
+    White={White,White,White,White,White,White,White,White},
+    Orange={Orange,Orange,Orange,Orange,Orange,Orange,Orange,Orange}
+    ];
+
+
+
+
+|| 3. Integer initialization
+Num: num2 = 5;
+|| NUm: num1 = 3;
+
+
+
+|| 4. Algorithm initialization
+Algo: algorythm1=[R, R2, move_var];
+|| Algo: algorythm1=[R, R2, x, 1];
+
+
+|| 5. Move initialization
+Move: m1 = R;
+Move: m2 = R;
+Move: m3 = r;
+Move: m1 = rp;
+|| Move: m1 = 123;
+
+
+|| 6. Array initialization
+Array($Cube): arr1 = [adsa, m1, num2, sett1, 1, 2,  3, R];
+
+
+|| STATEMENTS
+
+|| 7. show function
+show(asa);
+show(array_of_moves);
+|| show("asa");
+
+
+|| 8. algorithmExecution function
+
+cube1.exec(move1);
+cube1.exec(R);
+|| cube1.exec(2);
+
+
+|| 9. interationForI loop
+
+loop 5 times: cube1.exec(algo);
+loop num1 times: cube1.exec(R);
+loop 12 times: cube1.exec(rp) + cube1.exec(algo2);
+
+
+|| 10. interationForEach loop
+
+loop in arr1 using item : cube1.exec(item);
+loop in arr2 using item : cube1.exec(R);
+loop in arr1 using item : cube1.exec(item) + cube1.exec(rp);
+|| loop in 3 using item : cube1.exec(item) + cube1.exec(rp);
+

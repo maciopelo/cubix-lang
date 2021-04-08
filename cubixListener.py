@@ -17,6 +17,15 @@ class cubixListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by cubixParser#statement.
+    def enterStatement(self, ctx:cubixParser.StatementContext):
+        pass
+
+    # Exit a parse tree produced by cubixParser#statement.
+    def exitStatement(self, ctx:cubixParser.StatementContext):
+        pass
+
+
     # Enter a parse tree produced by cubixParser#algorithmExecution.
     def enterAlgorithmExecution(self, ctx:cubixParser.AlgorithmExecutionContext):
         pass
@@ -35,12 +44,21 @@ class cubixListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by cubixParser#statement.
-    def enterStatement(self, ctx:cubixParser.StatementContext):
+    # Enter a parse tree produced by cubixParser#iterationForI.
+    def enterIterationForI(self, ctx:cubixParser.IterationForIContext):
         pass
 
-    # Exit a parse tree produced by cubixParser#statement.
-    def exitStatement(self, ctx:cubixParser.StatementContext):
+    # Exit a parse tree produced by cubixParser#iterationForI.
+    def exitIterationForI(self, ctx:cubixParser.IterationForIContext):
+        pass
+
+
+    # Enter a parse tree produced by cubixParser#iterationForEach.
+    def enterIterationForEach(self, ctx:cubixParser.IterationForEachContext):
+        pass
+
+    # Exit a parse tree produced by cubixParser#iterationForEach.
+    def exitIterationForEach(self, ctx:cubixParser.IterationForEachContext):
         pass
 
 
@@ -104,24 +122,6 @@ class cubixListener(ParseTreeListener):
 
     # Exit a parse tree produced by cubixParser#arrayInitalization.
     def exitArrayInitalization(self, ctx:cubixParser.ArrayInitalizationContext):
-        pass
-
-
-    # Enter a parse tree produced by cubixParser#iterationForI.
-    def enterIterationForI(self, ctx:cubixParser.IterationForIContext):
-        pass
-
-    # Exit a parse tree produced by cubixParser#iterationForI.
-    def exitIterationForI(self, ctx:cubixParser.IterationForIContext):
-        pass
-
-
-    # Enter a parse tree produced by cubixParser#iterationForEach.
-    def enterIterationForEach(self, ctx:cubixParser.IterationForEachContext):
-        pass
-
-    # Exit a parse tree produced by cubixParser#iterationForEach.
-    def exitIterationForEach(self, ctx:cubixParser.IterationForEachContext):
         pass
 
 

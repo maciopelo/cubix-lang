@@ -18,6 +18,7 @@ def main(argv):
 
 
         html_with_x3dom = CubixLangListener(output_file)
+        
         walker = ParseTreeWalker()
         walker.walk(html_with_x3dom, tree)
 
