@@ -10,8 +10,13 @@ class CubixLangListener(CubixListener):
         self.output = output
         self.output.write(initial_html)
 
-    # def enterNumberInitalization(self, ctx):
-    #     print(f"Enter num: {ctx.getText()}")
+    
+    def enterStart(self, ctx):
+        print(f"{ctx.getText()}\n")
+
+
+    def enterNumberInitalization(self, ctx):
+        print(f"Enter num: {ctx.getText()}\n")
 
     # def exitNumberInitalization(self, ctx):
     #     print(f"Exit num: {ctx.getText()}")
@@ -31,8 +36,11 @@ class CubixLangListener(CubixListener):
     #     print(f"Exit move: {ctx.getText()}")
 
 
-    # def enterCubeInitialization(self, ctx):
-    #     print(f"Enter cubeint: {ctx.getText()}")
+    def enterCubeInitialization(self, ctx):
+        print(f"Enter cubeint: {ctx.getText()}")
+        print(f"Type: {ctx.CUBE()}")
+        print(f"Variable name: {ctx.VariableName()}")
+        print(f"Value: {ctx.CubeValue()}\n")
 
     # def exitCubeInitialization(self, ctx):
     #     print(f"Exit cubeint: {ctx.getText()}")

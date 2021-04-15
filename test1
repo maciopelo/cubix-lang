@@ -1,0 +1,18 @@
+|@ Multi 
+      line
+        comment
+
+@|
+
+
+|| One line comment
+
+show(var);
+
+|| cube.exec(R);
+
+
+Cube: cube1 = cube("mixed");
+
+
+Num: num1 = 5;

@@ -72,6 +72,9 @@ NONDIGIT: [a-z] | [A-Z] | '_';
 NUMBER: [1-9] [0-9]*;
 
 
+/* ----------------------- */
+
+
 statement: (algorithmExecution | iterationForI | iterationForEach | show ) SEMICOLON;
 
 
@@ -79,10 +82,14 @@ algorithmExecution: VariableName DOT EXEC LeftRoundBracket (VariableName | MOVEV
 
 show: SHOW LeftRoundBracket (VariableName) RightRoundBracket;
 
-iterationForI: LOOP (NUMBER | VariableName) TIMES COLON (algorithmExecution | show) (PLUS (algorithmExecution | show))*;
+loop: (iterationForI | iterationForEach);
 
-iterationForEach: LOOP IN VariableName USING VariableName COLON (algorithmExecution | show) (PLUS (algorithmExecution | show))*;
+iterationForI: LOOP (NUMBER | VariableName) TIMES LeftCurlyBracket (algorithmExecution | show | loop) (PLUS (algorithmExecution | show | loop))* RightCurlyBracket;
 
+iterationForEach: LOOP IN VariableName USING VariableName LeftCurlyBracket (algorithmExecution | show | loop) (PLUS (algorithmExecution | show | loop))* RightCurlyBracket;
+
+
+/* ----------------------- */
 
 
 expression: (cubeInitialization | algorithmInitalization | numberInitalization | settingInitalization | moveInitalization | arrayInitalization) SEMICOLON;
@@ -101,7 +108,7 @@ moveInitalization: MOVE COLON VariableName ASSIGN MOVEVALUE;
 arrayInitalization: ARRAY LeftRoundBracket Type RightRoundBracket COLON VariableName ASSIGN ArrayValue;
 
 
-/* ----------- */
+/* ----------------------- */
 
 
 SettingValue: LeftSquareBracket Wall COMMA Wall COMMA Wall COMMA Wall COMMA Wall COMMA Wall RightSquareBracket; 
@@ -115,3 +122,4 @@ CubeValue: CUBECONSTRUCTOR LeftRoundBracket CubeState RightRoundBracket;
 ArrayValue: LeftSquareBracket (VariableName COMMA | NUMBER COMMA)* (VariableName | NUMBER) RightSquareBracket;
 
 Wall: COLOR ASSIGN LeftCurlyBracket COLOR COMMA COLOR COMMA COLOR COMMA COLOR COMMA COLOR COMMA COLOR COMMA COLOR COMMA COLOR RightCurlyBracket;
+

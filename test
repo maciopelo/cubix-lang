@@ -1,5 +1,4 @@
 
-
 |@ Multi 
       line
         comment
@@ -33,9 +32,12 @@ Cube: a = cube("solved");
 
 |@  2. Setting initialization  @|
 Setting: sett1 = [
-    Red={Red,Red,Red,Red,Red,Red,Red,Red},
+
+
+
+    Red={Red,Red,   Red,Red,Red,Red,Red,Red},
     Green={Green,  Green,Green,Green,Green,Green,Green,Green},
-    Blue={Blue,Blue,  Blue,Blue,Blue,Blue,Blue,Blue},
+    Blue={Blue,   Blue,  Blue,Blue,Blue,Blue,Blue,Blue},
     
     Yellow={Yellow,Yellow,Yellow,Yellow,Yellow,Yellow,Yellow,Yellow},
     White={White,White,White,White,White,White,White,White},
@@ -52,7 +54,7 @@ Num: num2 = 5;
 
 
 || 4. Algorithm initialization
-Algo: algorythm1=[R, R2, move_var];
+Algo: algorythm1 = [R, R2, move_var];
 || Algo: algorythm1=[R, R2, x, 1];
 
 
@@ -84,16 +86,34 @@ cube1.exec(R);
 
 
 || 9. interationForI loop
+|| loop 5 times {};
 
-loop 5 times: cube1.exec(algo);
-loop num1 times: cube1.exec(R);
-loop 12 times: cube1.exec(rp) + cube1.exec(algo2);
+
+loop 5 times{ cube1.exec(R) };
+
+loop num1 times{ 
+
+  loop 7 times{ cube1.exec(R2) } + 
+
+  loop in arr1 using item { cube1.exec(item) + cube1.exec(rp) }  + 
+
+  show(var)
+
+};
 
 
 || 10. interationForEach loop
-
-loop in arr1 using item : cube1.exec(item);
-loop in arr2 using item : cube1.exec(R);
-loop in arr1 using item : cube1.exec(item) + cube1.exec(rp);
 || loop in 3 using item : cube1.exec(item) + cube1.exec(rp);
+|| loop in arr132 using item {};
+
+loop in arr3 using item {
+  cube1.exec(R) + 
+  show(w)
+};
+
+loop in arrN using it { 
+  loop 5 times{ cube5.exec(r) } + 
+  loop in arr2 using algo { cube1.exec(R) } +
+  cube1.exec(item)
+};
 
