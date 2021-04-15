@@ -91,10 +91,10 @@ class cubixParser ( Parser ):
     symbolicNames = [ "<INVALID>", "MOVEVALUE", "COLOR", "CUBE", "MOVE", 
                       "ALGO", "NUM", "SETTING", "ARRAY", "Type", "LeftRoundBracket", 
                       "RightRoundBracket", "LeftSquareBracket", "RightSquareBracket", 
-                      "LeftCurlyBracket", "RightCurlyBracket", "Comma", 
-                      "Semicolon", "Dot", "Dollar", "Plus", "Assign", "Colon", 
-                      "Loop", "Times", "Exec", "CubeConstructor", "SHOW", 
-                      "Mixed", "Solved", "In", "Using", "Whitespace", "Newline", 
+                      "LeftCurlyBracket", "RightCurlyBracket", "COMMA", 
+                      "SEMICOLON", "DOT", "DOLLAR", "PLUS", "ASSIGN", "COLON", 
+                      "LOOP", "TIMES", "EXEC", "CUBECONSTRUCTOR", "SHOW", 
+                      "MIXED", "SOLVED", "IN", "USING", "Whitespace", "Newline", 
                       "BlockComment", "LineComment", "VariableName", "NONDIGIT", 
                       "NUMBER", "SettingValue", "CubeState", "AlgorithmValue", 
                       "CubeValue", "ArrayValue", "Wall" ]
@@ -134,22 +134,22 @@ class cubixParser ( Parser ):
     RightSquareBracket=13
     LeftCurlyBracket=14
     RightCurlyBracket=15
-    Comma=16
-    Semicolon=17
-    Dot=18
-    Dollar=19
-    Plus=20
-    Assign=21
-    Colon=22
-    Loop=23
-    Times=24
-    Exec=25
-    CubeConstructor=26
+    COMMA=16
+    SEMICOLON=17
+    DOT=18
+    DOLLAR=19
+    PLUS=20
+    ASSIGN=21
+    COLON=22
+    LOOP=23
+    TIMES=24
+    EXEC=25
+    CUBECONSTRUCTOR=26
     SHOW=27
-    Mixed=28
-    Solved=29
-    In=30
-    Using=31
+    MIXED=28
+    SOLVED=29
+    IN=30
+    USING=31
     Whitespace=32
     Newline=33
     BlockComment=34
@@ -190,11 +190,11 @@ class cubixParser ( Parser ):
                 return self.getTypedRuleContext(cubixParser.CubeInitializationContext,i)
 
 
-        def Semicolon(self, i:int=None):
+        def SEMICOLON(self, i:int=None):
             if i is None:
-                return self.getTokens(cubixParser.Semicolon)
+                return self.getTokens(cubixParser.SEMICOLON)
             else:
-                return self.getToken(cubixParser.Semicolon, i)
+                return self.getToken(cubixParser.SEMICOLON, i)
 
         def expression(self, i:int=None):
             if i is None:
@@ -258,7 +258,7 @@ class cubixParser ( Parser ):
                             self.state = 27
                             self.show()
                             self.state = 28
-                            self.match(cubixParser.Semicolon)
+                            self.match(cubixParser.SEMICOLON)
                             pass
                         else:
                             raise NoViableAltException(self)
@@ -270,7 +270,7 @@ class cubixParser ( Parser ):
                 self.state = 35
                 self.cubeInitialization()
                 self.state = 36
-                self.match(cubixParser.Semicolon)
+                self.match(cubixParser.SEMICOLON)
                 self.state = 41
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,3,self._ctx)
@@ -283,7 +283,7 @@ class cubixParser ( Parser ):
                             self.state = 37
                             self.expression()
                             pass
-                        elif token in [cubixParser.Loop, cubixParser.SHOW, cubixParser.VariableName]:
+                        elif token in [cubixParser.LOOP, cubixParser.SHOW, cubixParser.VariableName]:
                             self.state = 38
                             self.statement()
                             pass
@@ -318,8 +318,8 @@ class cubixParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def Semicolon(self):
-            return self.getToken(cubixParser.Semicolon, 0)
+        def SEMICOLON(self):
+            return self.getToken(cubixParser.SEMICOLON, 0)
 
         def algorithmExecution(self):
             return self.getTypedRuleContext(cubixParser.AlgorithmExecutionContext,0)
@@ -382,7 +382,7 @@ class cubixParser ( Parser ):
 
 
             self.state = 56
-            self.match(cubixParser.Semicolon)
+            self.match(cubixParser.SEMICOLON)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -405,11 +405,11 @@ class cubixParser ( Parser ):
             else:
                 return self.getToken(cubixParser.VariableName, i)
 
-        def Dot(self):
-            return self.getToken(cubixParser.Dot, 0)
+        def DOT(self):
+            return self.getToken(cubixParser.DOT, 0)
 
-        def Exec(self):
-            return self.getToken(cubixParser.Exec, 0)
+        def EXEC(self):
+            return self.getToken(cubixParser.EXEC, 0)
 
         def LeftRoundBracket(self):
             return self.getToken(cubixParser.LeftRoundBracket, 0)
@@ -420,8 +420,8 @@ class cubixParser ( Parser ):
         def MOVEVALUE(self):
             return self.getToken(cubixParser.MOVEVALUE, 0)
 
-        def Comma(self):
-            return self.getToken(cubixParser.Comma, 0)
+        def COMMA(self):
+            return self.getToken(cubixParser.COMMA, 0)
 
         def NUMBER(self):
             return self.getToken(cubixParser.NUMBER, 0)
@@ -450,9 +450,9 @@ class cubixParser ( Parser ):
             self.state = 58
             self.match(cubixParser.VariableName)
             self.state = 59
-            self.match(cubixParser.Dot)
+            self.match(cubixParser.DOT)
             self.state = 60
-            self.match(cubixParser.Exec)
+            self.match(cubixParser.EXEC)
             self.state = 61
             self.match(cubixParser.LeftRoundBracket)
             self.state = 62
@@ -465,9 +465,9 @@ class cubixParser ( Parser ):
             self.state = 65
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==cubixParser.Comma:
+            if _la==cubixParser.COMMA:
                 self.state = 63
-                self.match(cubixParser.Comma)
+                self.match(cubixParser.COMMA)
                 self.state = 64
                 self.match(cubixParser.NUMBER)
 
@@ -547,14 +547,14 @@ class cubixParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def Loop(self):
-            return self.getToken(cubixParser.Loop, 0)
+        def LOOP(self):
+            return self.getToken(cubixParser.LOOP, 0)
 
-        def Times(self):
-            return self.getToken(cubixParser.Times, 0)
+        def TIMES(self):
+            return self.getToken(cubixParser.TIMES, 0)
 
-        def Colon(self):
-            return self.getToken(cubixParser.Colon, 0)
+        def COLON(self):
+            return self.getToken(cubixParser.COLON, 0)
 
         def NUMBER(self):
             return self.getToken(cubixParser.NUMBER, 0)
@@ -576,11 +576,11 @@ class cubixParser ( Parser ):
                 return self.getTypedRuleContext(cubixParser.ShowContext,i)
 
 
-        def Plus(self, i:int=None):
+        def PLUS(self, i:int=None):
             if i is None:
-                return self.getTokens(cubixParser.Plus)
+                return self.getTokens(cubixParser.PLUS)
             else:
-                return self.getToken(cubixParser.Plus, i)
+                return self.getToken(cubixParser.PLUS, i)
 
         def getRuleIndex(self):
             return cubixParser.RULE_iterationForI
@@ -604,7 +604,7 @@ class cubixParser ( Parser ):
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 74
-            self.match(cubixParser.Loop)
+            self.match(cubixParser.LOOP)
             self.state = 75
             _la = self._input.LA(1)
             if not(_la==cubixParser.VariableName or _la==cubixParser.NUMBER):
@@ -613,9 +613,9 @@ class cubixParser ( Parser ):
                 self._errHandler.reportMatch(self)
                 self.consume()
             self.state = 76
-            self.match(cubixParser.Times)
+            self.match(cubixParser.TIMES)
             self.state = 77
-            self.match(cubixParser.Colon)
+            self.match(cubixParser.COLON)
             self.state = 80
             self._errHandler.sync(self)
             token = self._input.LA(1)
@@ -633,9 +633,9 @@ class cubixParser ( Parser ):
             self.state = 89
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==cubixParser.Plus:
+            while _la==cubixParser.PLUS:
                 self.state = 82
-                self.match(cubixParser.Plus)
+                self.match(cubixParser.PLUS)
                 self.state = 85
                 self._errHandler.sync(self)
                 token = self._input.LA(1)
@@ -670,11 +670,11 @@ class cubixParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def Loop(self):
-            return self.getToken(cubixParser.Loop, 0)
+        def LOOP(self):
+            return self.getToken(cubixParser.LOOP, 0)
 
-        def In(self):
-            return self.getToken(cubixParser.In, 0)
+        def IN(self):
+            return self.getToken(cubixParser.IN, 0)
 
         def VariableName(self, i:int=None):
             if i is None:
@@ -682,11 +682,11 @@ class cubixParser ( Parser ):
             else:
                 return self.getToken(cubixParser.VariableName, i)
 
-        def Using(self):
-            return self.getToken(cubixParser.Using, 0)
+        def USING(self):
+            return self.getToken(cubixParser.USING, 0)
 
-        def Colon(self):
-            return self.getToken(cubixParser.Colon, 0)
+        def COLON(self):
+            return self.getToken(cubixParser.COLON, 0)
 
         def algorithmExecution(self, i:int=None):
             if i is None:
@@ -702,11 +702,11 @@ class cubixParser ( Parser ):
                 return self.getTypedRuleContext(cubixParser.ShowContext,i)
 
 
-        def Plus(self, i:int=None):
+        def PLUS(self, i:int=None):
             if i is None:
-                return self.getTokens(cubixParser.Plus)
+                return self.getTokens(cubixParser.PLUS)
             else:
-                return self.getToken(cubixParser.Plus, i)
+                return self.getToken(cubixParser.PLUS, i)
 
         def getRuleIndex(self):
             return cubixParser.RULE_iterationForEach
@@ -730,17 +730,17 @@ class cubixParser ( Parser ):
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 92
-            self.match(cubixParser.Loop)
+            self.match(cubixParser.LOOP)
             self.state = 93
-            self.match(cubixParser.In)
+            self.match(cubixParser.IN)
             self.state = 94
             self.match(cubixParser.VariableName)
             self.state = 95
-            self.match(cubixParser.Using)
+            self.match(cubixParser.USING)
             self.state = 96
             self.match(cubixParser.VariableName)
             self.state = 97
-            self.match(cubixParser.Colon)
+            self.match(cubixParser.COLON)
             self.state = 100
             self._errHandler.sync(self)
             token = self._input.LA(1)
@@ -758,9 +758,9 @@ class cubixParser ( Parser ):
             self.state = 109
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==cubixParser.Plus:
+            while _la==cubixParser.PLUS:
                 self.state = 102
-                self.match(cubixParser.Plus)
+                self.match(cubixParser.PLUS)
                 self.state = 105
                 self._errHandler.sync(self)
                 token = self._input.LA(1)
@@ -795,8 +795,8 @@ class cubixParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def Semicolon(self):
-            return self.getToken(cubixParser.Semicolon, 0)
+        def SEMICOLON(self):
+            return self.getToken(cubixParser.SEMICOLON, 0)
 
         def cubeInitialization(self):
             return self.getTypedRuleContext(cubixParser.CubeInitializationContext,0)
@@ -873,7 +873,7 @@ class cubixParser ( Parser ):
                 raise NoViableAltException(self)
 
             self.state = 120
-            self.match(cubixParser.Semicolon)
+            self.match(cubixParser.SEMICOLON)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -893,14 +893,14 @@ class cubixParser ( Parser ):
         def CUBE(self):
             return self.getToken(cubixParser.CUBE, 0)
 
-        def Colon(self):
-            return self.getToken(cubixParser.Colon, 0)
+        def COLON(self):
+            return self.getToken(cubixParser.COLON, 0)
 
         def VariableName(self):
             return self.getToken(cubixParser.VariableName, 0)
 
-        def Assign(self):
-            return self.getToken(cubixParser.Assign, 0)
+        def ASSIGN(self):
+            return self.getToken(cubixParser.ASSIGN, 0)
 
         def CubeValue(self):
             return self.getToken(cubixParser.CubeValue, 0)
@@ -928,11 +928,11 @@ class cubixParser ( Parser ):
             self.state = 122
             self.match(cubixParser.CUBE)
             self.state = 123
-            self.match(cubixParser.Colon)
+            self.match(cubixParser.COLON)
             self.state = 124
             self.match(cubixParser.VariableName)
             self.state = 125
-            self.match(cubixParser.Assign)
+            self.match(cubixParser.ASSIGN)
             self.state = 126
             self.match(cubixParser.CubeValue)
         except RecognitionException as re:
@@ -954,14 +954,14 @@ class cubixParser ( Parser ):
         def ALGO(self):
             return self.getToken(cubixParser.ALGO, 0)
 
-        def Colon(self):
-            return self.getToken(cubixParser.Colon, 0)
+        def COLON(self):
+            return self.getToken(cubixParser.COLON, 0)
 
         def VariableName(self):
             return self.getToken(cubixParser.VariableName, 0)
 
-        def Assign(self):
-            return self.getToken(cubixParser.Assign, 0)
+        def ASSIGN(self):
+            return self.getToken(cubixParser.ASSIGN, 0)
 
         def AlgorithmValue(self):
             return self.getToken(cubixParser.AlgorithmValue, 0)
@@ -989,11 +989,11 @@ class cubixParser ( Parser ):
             self.state = 128
             self.match(cubixParser.ALGO)
             self.state = 129
-            self.match(cubixParser.Colon)
+            self.match(cubixParser.COLON)
             self.state = 130
             self.match(cubixParser.VariableName)
             self.state = 131
-            self.match(cubixParser.Assign)
+            self.match(cubixParser.ASSIGN)
             self.state = 132
             self.match(cubixParser.AlgorithmValue)
         except RecognitionException as re:
@@ -1015,14 +1015,14 @@ class cubixParser ( Parser ):
         def NUM(self):
             return self.getToken(cubixParser.NUM, 0)
 
-        def Colon(self):
-            return self.getToken(cubixParser.Colon, 0)
+        def COLON(self):
+            return self.getToken(cubixParser.COLON, 0)
 
         def VariableName(self):
             return self.getToken(cubixParser.VariableName, 0)
 
-        def Assign(self):
-            return self.getToken(cubixParser.Assign, 0)
+        def ASSIGN(self):
+            return self.getToken(cubixParser.ASSIGN, 0)
 
         def NUMBER(self):
             return self.getToken(cubixParser.NUMBER, 0)
@@ -1050,11 +1050,11 @@ class cubixParser ( Parser ):
             self.state = 134
             self.match(cubixParser.NUM)
             self.state = 135
-            self.match(cubixParser.Colon)
+            self.match(cubixParser.COLON)
             self.state = 136
             self.match(cubixParser.VariableName)
             self.state = 137
-            self.match(cubixParser.Assign)
+            self.match(cubixParser.ASSIGN)
             self.state = 138
             self.match(cubixParser.NUMBER)
         except RecognitionException as re:
@@ -1076,14 +1076,14 @@ class cubixParser ( Parser ):
         def SETTING(self):
             return self.getToken(cubixParser.SETTING, 0)
 
-        def Colon(self):
-            return self.getToken(cubixParser.Colon, 0)
+        def COLON(self):
+            return self.getToken(cubixParser.COLON, 0)
 
         def VariableName(self):
             return self.getToken(cubixParser.VariableName, 0)
 
-        def Assign(self):
-            return self.getToken(cubixParser.Assign, 0)
+        def ASSIGN(self):
+            return self.getToken(cubixParser.ASSIGN, 0)
 
         def SettingValue(self):
             return self.getToken(cubixParser.SettingValue, 0)
@@ -1111,11 +1111,11 @@ class cubixParser ( Parser ):
             self.state = 140
             self.match(cubixParser.SETTING)
             self.state = 141
-            self.match(cubixParser.Colon)
+            self.match(cubixParser.COLON)
             self.state = 142
             self.match(cubixParser.VariableName)
             self.state = 143
-            self.match(cubixParser.Assign)
+            self.match(cubixParser.ASSIGN)
             self.state = 144
             self.match(cubixParser.SettingValue)
         except RecognitionException as re:
@@ -1137,14 +1137,14 @@ class cubixParser ( Parser ):
         def MOVE(self):
             return self.getToken(cubixParser.MOVE, 0)
 
-        def Colon(self):
-            return self.getToken(cubixParser.Colon, 0)
+        def COLON(self):
+            return self.getToken(cubixParser.COLON, 0)
 
         def VariableName(self):
             return self.getToken(cubixParser.VariableName, 0)
 
-        def Assign(self):
-            return self.getToken(cubixParser.Assign, 0)
+        def ASSIGN(self):
+            return self.getToken(cubixParser.ASSIGN, 0)
 
         def MOVEVALUE(self):
             return self.getToken(cubixParser.MOVEVALUE, 0)
@@ -1172,11 +1172,11 @@ class cubixParser ( Parser ):
             self.state = 146
             self.match(cubixParser.MOVE)
             self.state = 147
-            self.match(cubixParser.Colon)
+            self.match(cubixParser.COLON)
             self.state = 148
             self.match(cubixParser.VariableName)
             self.state = 149
-            self.match(cubixParser.Assign)
+            self.match(cubixParser.ASSIGN)
             self.state = 150
             self.match(cubixParser.MOVEVALUE)
         except RecognitionException as re:
@@ -1207,14 +1207,14 @@ class cubixParser ( Parser ):
         def RightRoundBracket(self):
             return self.getToken(cubixParser.RightRoundBracket, 0)
 
-        def Colon(self):
-            return self.getToken(cubixParser.Colon, 0)
+        def COLON(self):
+            return self.getToken(cubixParser.COLON, 0)
 
         def VariableName(self):
             return self.getToken(cubixParser.VariableName, 0)
 
-        def Assign(self):
-            return self.getToken(cubixParser.Assign, 0)
+        def ASSIGN(self):
+            return self.getToken(cubixParser.ASSIGN, 0)
 
         def ArrayValue(self):
             return self.getToken(cubixParser.ArrayValue, 0)
@@ -1248,11 +1248,11 @@ class cubixParser ( Parser ):
             self.state = 155
             self.match(cubixParser.RightRoundBracket)
             self.state = 156
-            self.match(cubixParser.Colon)
+            self.match(cubixParser.COLON)
             self.state = 157
             self.match(cubixParser.VariableName)
             self.state = 158
-            self.match(cubixParser.Assign)
+            self.match(cubixParser.ASSIGN)
             self.state = 159
             self.match(cubixParser.ArrayValue)
         except RecognitionException as re:

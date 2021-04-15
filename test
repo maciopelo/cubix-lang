@@ -1,14 +1,13 @@
 
 
 |@ Multi 
-line
-comment
+      line
+        comment
 
 @|
 
 
-|| Welcome my dear friend in line comment, here you are completely safe and you can do here whatever you want but remeber one very very important fact you must not go to next line because here we dont do that, here we live in kinda "straight" way and respect this AWESOME RULE so KEEP CALM AND DO NOT PRESS ENTER
-
+|| One line comment
 
 show(var);
 

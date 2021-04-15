@@ -2,7 +2,6 @@ grammar cubix;
 
 
 
-
 start: ((expression | show SEMICOLON)* cubeInitialization SEMICOLON (expression | statement)*)+ EOF ;
 
 
@@ -67,10 +66,10 @@ Newline: ('\r' '\n'? | '\n') -> skip;
 BlockComment: '|@' .*? '@|' -> skip;
 LineComment: '||' ~ [\r\n]* -> skip;
 
-VariableName: NONDIGIT+ (NONDIGIT | NUMBER)*;
+VariableName: NONDIGIT (NONDIGIT | NUMBER)*;
 
 NONDIGIT: [a-z] | [A-Z] | '_';
-NUMBER: [0-9]+;
+NUMBER: [1-9] [0-9]*;
 
 
 statement: (algorithmExecution | iterationForI | iterationForEach | show ) SEMICOLON;
