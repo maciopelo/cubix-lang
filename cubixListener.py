@@ -44,6 +44,15 @@ class cubixListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by cubixParser#loop.
+    def enterLoop(self, ctx:cubixParser.LoopContext):
+        pass
+
+    # Exit a parse tree produced by cubixParser#loop.
+    def exitLoop(self, ctx:cubixParser.LoopContext):
+        pass
+
+
     # Enter a parse tree produced by cubixParser#iterationForI.
     def enterIterationForI(self, ctx:cubixParser.IterationForIContext):
         pass

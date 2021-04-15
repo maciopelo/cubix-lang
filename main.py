@@ -23,5 +23,6 @@ def main(argv):
         walker.walk(html_with_x3dom, tree)
 
 
+
 if __name__ == '__main__':
     main(sys.argv)
