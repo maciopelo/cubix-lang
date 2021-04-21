@@ -7,7 +7,7 @@
 
 || One line comment
 
-show(var);
+Num: num2 = 5;
 
 || cube.exec(R);
 
