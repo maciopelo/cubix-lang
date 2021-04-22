@@ -12,7 +12,9 @@ Num: num2 = 5;
 || cube.exec(R);
 
 
-Cube: cube1 = cube("mixed");
+Cube: cube1 = cube("solved");
+
+
 
 
 Num: num1 = 5;

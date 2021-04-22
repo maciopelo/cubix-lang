@@ -4,6 +4,8 @@ from init import initial_html, ending_html
 from antlr4 import *
 import sys
 from cubixParser import cubixParser
+from x3domCube import solvedCube
+
 
 
 class CubixLangListener(CubixListener):
@@ -17,8 +19,10 @@ class CubixLangListener(CubixListener):
 
 
     def enterNumberInitalization(self, ctx):
+
         name = ctx.VariableName().getText()
         value = ctx.NUMBER().getText()
+
         if(name in self.variablesDictionary.keys()):
             print("Variable with this name already exist")
         else:
@@ -26,8 +30,10 @@ class CubixLangListener(CubixListener):
         
 
     def enterMoveInitalization(self, ctx):
+
         name = ctx.VariableName().getText()
         value = ctx.MOVEVALUE().getText()
+
         if(name in self.variablesDictionary.keys()):
             print("Variable with this name already exist")
         else:
@@ -39,18 +45,28 @@ class CubixLangListener(CubixListener):
 
     def enterCubeInitialization(self, ctx):
         name = ctx.VariableName().getText()
-        value = ctx.CubeValue().getText()
-        print(value)
+        
         if(name in self.variablesDictionary.keys()):
             print("Variable with this name already exist")
+
         else:
-            self.variablesDictionary[name] = value
+            
+            cubeValue = ctx.CubeValue().getText()
+            cubeState = cubeValue[5:len(cubeValue)-1]
+
+            if cubeState == '"solved"':
+                self.output.write(solvedCube)
+
+            elif cubeState == "mixed":
+                #generate x3dom mixed cube
+                pass
+            
+            else:
+                #generate x3dom cube with given sett
+                pass
 
 
-        print(f"Enter cubeint: {ctx.getText()}")
-        print(f"Type: {ctx.CUBE()}")
-        print(f"Variable name: {ctx.VariableName()}")
-        print(f"Value: {ctx.CubeValue()}\n")
+            self.variablesDictionary[name] = cubeValue
 
 
     def exitStart(self, ctx):
