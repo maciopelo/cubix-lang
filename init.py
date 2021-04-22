@@ -6,11 +6,15 @@ initial_html = """
         <link rel='stylesheet' type='text/css' href='http://www.x3dom.org/download/x3dom.css'></link> 
     </head> 
         <body> 
+        <h1>Cubix</h1> 
+        <x3d width='1200px' height='800px'> 
+            <scene>
 
 """
 
 
 ending_html = """
+            </scene>
         </body>
 </html>
 

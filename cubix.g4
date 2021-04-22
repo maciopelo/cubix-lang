@@ -113,11 +113,9 @@ arrayInitalization: ARRAY LeftRoundBracket Type RightRoundBracket COLON Variable
 
 SettingValue: LeftSquareBracket Wall COMMA Wall COMMA Wall COMMA Wall COMMA Wall COMMA Wall RightSquareBracket; 
 
-CubeState: ( MIXED | SOLVED | VariableName );
-
 AlgorithmValue: LeftSquareBracket (VariableName COMMA | MOVEVALUE COMMA)* (VariableName | MOVEVALUE) RightSquareBracket;
 
-CubeValue: CUBECONSTRUCTOR LeftRoundBracket CubeState RightRoundBracket;
+CubeValue: CUBECONSTRUCTOR LeftRoundBracket ( MIXED | SOLVED | VariableName ) RightRoundBracket;
 
 ArrayValue: LeftSquareBracket (VariableName COMMA | NUMBER COMMA)* (VariableName | NUMBER) RightSquareBracket;
 

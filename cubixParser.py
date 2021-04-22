@@ -11,7 +11,7 @@ else:
 
 def serializedATN():
     with StringIO() as buf:
-        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3.")
+        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3-")
         buf.write("\u00b2\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
         buf.write("\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r\4\16")
         buf.write("\t\16\4\17\t\17\3\2\3\2\3\2\3\2\7\2#\n\2\f\2\16\2&\13")
@@ -62,9 +62,9 @@ def serializedATN():
         buf.write("\3\2\2\2\u0086\u0085\3\2\2\2\u0087\u0088\3\2\2\2\u0088")
         buf.write("\u0089\7\23\2\2\u0089\21\3\2\2\2\u008a\u008b\7\5\2\2\u008b")
         buf.write("\u008c\7\30\2\2\u008c\u008d\7&\2\2\u008d\u008e\7\27\2")
-        buf.write("\2\u008e\u008f\7,\2\2\u008f\23\3\2\2\2\u0090\u0091\7\7")
+        buf.write("\2\u008e\u008f\7+\2\2\u008f\23\3\2\2\2\u0090\u0091\7\7")
         buf.write("\2\2\u0091\u0092\7\30\2\2\u0092\u0093\7&\2\2\u0093\u0094")
-        buf.write("\7\27\2\2\u0094\u0095\7+\2\2\u0095\25\3\2\2\2\u0096\u0097")
+        buf.write("\7\27\2\2\u0094\u0095\7*\2\2\u0095\25\3\2\2\2\u0096\u0097")
         buf.write("\7\b\2\2\u0097\u0098\7\30\2\2\u0098\u0099\7&\2\2\u0099")
         buf.write("\u009a\7\27\2\2\u009a\u009b\7(\2\2\u009b\27\3\2\2\2\u009c")
         buf.write("\u009d\7\t\2\2\u009d\u009e\7\30\2\2\u009e\u009f\7&\2\2")
@@ -74,7 +74,7 @@ def serializedATN():
         buf.write("\33\3\2\2\2\u00a8\u00a9\7\n\2\2\u00a9\u00aa\7\f\2\2\u00aa")
         buf.write("\u00ab\7\13\2\2\u00ab\u00ac\7\r\2\2\u00ac\u00ad\7\30\2")
         buf.write("\2\u00ad\u00ae\7&\2\2\u00ae\u00af\7\27\2\2\u00af\u00b0")
-        buf.write("\7-\2\2\u00b0\35\3\2\2\2\21\"$+-\62:EPY_cqw{\u0086")
+        buf.write("\7,\2\2\u00b0\35\3\2\2\2\21\"$+-\62:EPY_cqw{\u0086")
         return buf.getvalue()
 
 
@@ -104,8 +104,8 @@ class cubixParser ( Parser ):
                       "LOOP", "TIMES", "EXEC", "CUBECONSTRUCTOR", "SHOW", 
                       "MIXED", "SOLVED", "IN", "USING", "Whitespace", "Newline", 
                       "BlockComment", "LineComment", "VariableName", "NONDIGIT", 
-                      "NUMBER", "SettingValue", "CubeState", "AlgorithmValue", 
-                      "CubeValue", "ArrayValue", "Wall" ]
+                      "NUMBER", "SettingValue", "AlgorithmValue", "CubeValue", 
+                      "ArrayValue", "Wall" ]
 
     RULE_start = 0
     RULE_statement = 1
@@ -167,11 +167,10 @@ class cubixParser ( Parser ):
     NONDIGIT=37
     NUMBER=38
     SettingValue=39
-    CubeState=40
-    AlgorithmValue=41
-    CubeValue=42
-    ArrayValue=43
-    Wall=44
+    AlgorithmValue=40
+    CubeValue=41
+    ArrayValue=42
+    Wall=43
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
