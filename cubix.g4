@@ -2,15 +2,16 @@ grammar cubix;
 
 
 
-start: ((expression | show SEMICOLON)* cubeInitialization SEMICOLON (expression | statement)*)+ EOF ;
+// start: ((expression | show SEMICOLON)* cubeInitialization SEMICOLON (expression | statement)*)+ EOF ;
+start: (expression | statement | functionDeclaration)+ (show SEMICOLON)* EOF;
 
 
-MOVEVALUE:      'R'  | 'R2'   | 'R’'  | 'r'   | 'r2'  |  'rp' | 
-                'L'  | 'L2'   | 'L’'  | 'l'   | 'l2'  |  'lp' |  
-                'F'  | 'F2'   | 'F’'  | 'f'   | 'f2'  |  'fp' | 
-                'B'  | 'B2'   | 'B’'  | 'b'   | 'b2'  |  'bp' |  
-                'D'  | 'D2'   | 'D’'  | 'd'   | 'd2'  |  'dp' |
-                'U'  | 'U2'   | 'U’'  | 'u'   | 'u2'  |  'up' | 
+MOVEVALUE:      'R'  | 'R2'   | 'Rp'  | 'r'   | 'r2'  |  'rp' | 
+                'L'  | 'L2'   | 'Lp'  | 'l'   | 'l2'  |  'lp' |  
+                'F'  | 'F2'   | 'Fp'  | 'f'   | 'f2'  |  'fp' | 
+                'B'  | 'B2'   | 'Bp'  | 'b'   | 'b2'  |  'bp' |  
+                'D'  | 'D2'   | 'Dp'  | 'd'   | 'd2'  |  'dp' |
+                'U'  | 'U2'   | 'Up'  | 'u'   | 'u2'  |  'up' | 
                 'M'  | 'E'    | 'S'   | 'x'   | 'y'   |  'z'  ;
 
 
@@ -30,6 +31,7 @@ ALGO: 'Algo';
 NUM: 'Num';
 SETTING: 'Setting';
 ARRAY: 'Array';
+FUNC: 'FUNC';
 Type: DOLLAR (CUBE | MOVE | ALGO | NUM | SETTING);
 
 
@@ -59,6 +61,8 @@ MIXED: '"mixed"';
 SOLVED: '"solved"';
 IN: 'in';
 USING: 'using';
+BEGIN: 'begin';
+END: 'end';
 
 Whitespace: [ \t]+ -> skip;
 Newline: ('\r' '\n'? | '\n') -> skip;
@@ -75,7 +79,7 @@ NUMBER: [1-9] [0-9]*;
 /* ----------------------- */
 
 
-statement: (algorithmExecution | iterationForI | iterationForEach | show ) SEMICOLON;
+statement: (algorithmExecution | iterationForI | iterationForEach | show | functionExecution) SEMICOLON;
 
 
 algorithmExecution: VariableName DOT EXEC LeftRoundBracket (VariableName | MOVEVALUE) (COMMA NUMBER)? RightRoundBracket;
@@ -88,6 +92,8 @@ iterationForI: LOOP (NUMBER | VariableName) TIMES LeftCurlyBracket (algorithmExe
 
 iterationForEach: LOOP IN VariableName USING VariableName LeftCurlyBracket (algorithmExecution | show | loop) (PLUS (algorithmExecution | show | loop))* RightCurlyBracket;
 
+functionExecution: VariableName ( ('<' (VariableName COMMA)* VariableName '>') || ('<' '>') );
+
 
 /* ----------------------- */
 
@@ -99,13 +105,16 @@ cubeInitialization: CUBE COLON VariableName ASSIGN CubeValue;
 
 algorithmInitalization: ALGO COLON VariableName ASSIGN AlgorithmValue;
 
-numberInitalization: NUM COLON VariableName ASSIGN NUMBER;
+numberInitalization: NUM COLON VariableName ASSIGN (NUMBER | VariableName);
 
 settingInitalization: SETTING COLON VariableName ASSIGN SettingValue;
 
-moveInitalization: MOVE COLON VariableName ASSIGN MOVEVALUE;
+moveInitalization: MOVE COLON VariableName ASSIGN (MOVEVALUE | VariableName);
 
 arrayInitalization: ARRAY LeftRoundBracket Type RightRoundBracket COLON VariableName ASSIGN ArrayValue;
+
+functionDeclaration: FUNC VariableName ( ('<' (VariableName COMMA)* VariableName '>') | ('<' '>') ) BEGIN (statement | expression)+ END;
+
 
 
 /* ----------------------- */
@@ -113,7 +122,7 @@ arrayInitalization: ARRAY LeftRoundBracket Type RightRoundBracket COLON Variable
 
 SettingValue: LeftSquareBracket Wall COMMA Wall COMMA Wall COMMA Wall COMMA Wall COMMA Wall RightSquareBracket; 
 
-AlgorithmValue: LeftSquareBracket (VariableName COMMA | MOVEVALUE COMMA)* (VariableName | MOVEVALUE) RightSquareBracket;
+AlgorithmValue: LeftSquareBracket (VariableName COMMA | MOVEVALUE COMMA)* ((VariableName | MOVEVALUE) Whitespace*) RightSquareBracket;
 
 CubeValue: CUBECONSTRUCTOR LeftRoundBracket ( MIXED | SOLVED | VariableName ) RightRoundBracket;
 
@@ -121,3 +130,14 @@ ArrayValue: LeftSquareBracket (VariableName COMMA | NUMBER COMMA)* (VariableName
 
 Wall: COLOR ASSIGN LeftCurlyBracket COLOR COMMA COLOR COMMA COLOR COMMA COLOR COMMA COLOR COMMA COLOR COMMA COLOR COMMA COLOR RightCurlyBracket;
 
+
+
+/*
+
+FUNC nameOfTheFunc<args*> begin
+
+(statement | expression)+
+
+end
+ */
+ 
