@@ -1,20 +1,64 @@
 |@ Multi 
       line
         comment
-
 @|
+
+
+foo1<>;
+foo2<>;
+
+FUNC foo1<arg1, arg2> begin
+
+  Move: n = R;
+  Move: n1 = R;
+  Move: n2 = R;
+
+end
+
+
+FUNC foo2<arg1> begin
+
+  Move: re = R;
+ 
+end
+
+
+
 
 
 || One line comment
 
-Num: num2 = 5;
+Move: m1 = L;
 
-|| cube.exec(R);
+show(m1);
 
+|| cube1.exec(R);
 
 Cube: cube1 = cube("solved");
 
+cube1.exec(R);
+
+Move: m2 = m1;
+Move: m3 = m2;
+
+
+Num: num1 = 2;
+Num: num2 = num1;
+
+Algo: algorythm1 = [ R, R2, m3, x ];
 
 
 
-Num: num1 = 5;
+|@ Setting: sett1 = [
+    Red={Red, Red, Red, Red, Red, Red, Red, Red},
+    Green={Green, Green, Green, Green, Green, Green, Green, Green},
+    Blue={Blue, Blue, Blue, Blue, Blue, Blue, Blue, Blue},
+    Yellow={Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow},
+    White={White, White, White, White, White, White, White, White},
+    Orange={Orange, Orange, Orange, Orange, Orange, Orange, Orange, Orange}
+]; @|
+
+Array($Num): arr1 = [1, 2, 4, num1];
+|| Array($Num): arr2 = [1, 2, 4, algorythm1];
+
+

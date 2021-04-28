@@ -71,6 +71,15 @@ class cubixListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by cubixParser#functionExecution.
+    def enterFunctionExecution(self, ctx:cubixParser.FunctionExecutionContext):
+        pass
+
+    # Exit a parse tree produced by cubixParser#functionExecution.
+    def exitFunctionExecution(self, ctx:cubixParser.FunctionExecutionContext):
+        pass
+
+
     # Enter a parse tree produced by cubixParser#expression.
     def enterExpression(self, ctx:cubixParser.ExpressionContext):
         pass
@@ -131,6 +140,15 @@ class cubixListener(ParseTreeListener):
 
     # Exit a parse tree produced by cubixParser#arrayInitalization.
     def exitArrayInitalization(self, ctx:cubixParser.ArrayInitalizationContext):
+        pass
+
+
+    # Enter a parse tree produced by cubixParser#functionDeclaration.
+    def enterFunctionDeclaration(self, ctx:cubixParser.FunctionDeclarationContext):
+        pass
+
+    # Exit a parse tree produced by cubixParser#functionDeclaration.
+    def exitFunctionDeclaration(self, ctx:cubixParser.FunctionDeclarationContext):
         pass
 
 
