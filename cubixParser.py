@@ -12,91 +12,94 @@ else:
 def serializedATN():
     with StringIO() as buf:
         buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\62")
-        buf.write("\u00d9\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
+        buf.write("\u00dd\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
         buf.write("\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r\4\16")
         buf.write("\t\16\4\17\t\17\4\20\t\20\4\21\t\21\3\2\3\2\3\2\6\2&\n")
         buf.write("\2\r\2\16\2\'\3\2\3\2\3\2\7\2-\n\2\f\2\16\2\60\13\2\3")
         buf.write("\2\3\2\3\3\3\3\3\3\3\3\3\3\5\39\n\3\3\3\3\3\3\4\3\4\3")
         buf.write("\4\3\4\3\4\3\4\3\4\5\4D\n\4\3\4\3\4\3\5\3\5\3\5\3\5\3")
-        buf.write("\5\3\6\3\6\5\6O\n\6\3\7\3\7\3\7\3\7\3\7\3\7\3\7\5\7X\n")
-        buf.write("\7\3\7\3\7\3\7\3\7\5\7^\n\7\7\7`\n\7\f\7\16\7c\13\7\3")
-        buf.write("\7\3\7\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\5\bp\n\b\3")
-        buf.write("\b\3\b\3\b\3\b\5\bv\n\b\7\bx\n\b\f\b\16\b{\13\b\3\b\3")
-        buf.write("\b\3\t\3\t\3\t\3\t\7\t\u0083\n\t\f\t\16\t\u0086\13\t\3")
-        buf.write("\t\3\t\3\t\3\t\3\t\5\t\u008d\n\t\3\n\3\n\3\n\3\n\3\n\3")
-        buf.write("\n\5\n\u0095\n\n\3\n\3\n\3\13\3\13\3\13\3\13\3\13\3\13")
-        buf.write("\3\f\3\f\3\f\3\f\3\f\3\f\3\r\3\r\3\r\3\r\3\r\3\r\3\16")
-        buf.write("\3\16\3\16\3\16\3\16\3\16\3\17\3\17\3\17\3\17\3\17\3\17")
-        buf.write("\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\21\3\21")
-        buf.write("\3\21\3\21\3\21\7\21\u00c5\n\21\f\21\16\21\u00c8\13\21")
-        buf.write("\3\21\3\21\3\21\3\21\5\21\u00ce\n\21\3\21\3\21\3\21\6")
-        buf.write("\21\u00d3\n\21\r\21\16\21\u00d4\3\21\3\21\3\21\2\2\22")
-        buf.write("\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \2\4\4\2\5\5+")
-        buf.write("+\4\2++--\2\u00e8\2%\3\2\2\2\48\3\2\2\2\6<\3\2\2\2\bG")
-        buf.write("\3\2\2\2\nN\3\2\2\2\fP\3\2\2\2\16f\3\2\2\2\20~\3\2\2\2")
-        buf.write("\22\u0094\3\2\2\2\24\u0098\3\2\2\2\26\u009e\3\2\2\2\30")
-        buf.write("\u00a4\3\2\2\2\32\u00aa\3\2\2\2\34\u00b0\3\2\2\2\36\u00b6")
-        buf.write("\3\2\2\2 \u00bf\3\2\2\2\"&\5\22\n\2#&\5\4\3\2$&\5 \21")
-        buf.write("\2%\"\3\2\2\2%#\3\2\2\2%$\3\2\2\2&\'\3\2\2\2\'%\3\2\2")
-        buf.write("\2\'(\3\2\2\2(.\3\2\2\2)*\5\b\5\2*+\7\26\2\2+-\3\2\2\2")
-        buf.write(",)\3\2\2\2-\60\3\2\2\2.,\3\2\2\2./\3\2\2\2/\61\3\2\2\2")
-        buf.write("\60.\3\2\2\2\61\62\7\2\2\3\62\3\3\2\2\2\639\5\6\4\2\64")
-        buf.write("9\5\f\7\2\659\5\16\b\2\669\5\b\5\2\679\5\20\t\28\63\3")
-        buf.write("\2\2\28\64\3\2\2\28\65\3\2\2\28\66\3\2\2\28\67\3\2\2\2")
-        buf.write("9:\3\2\2\2:;\7\26\2\2;\5\3\2\2\2<=\7+\2\2=>\7\27\2\2>")
-        buf.write("?\7\36\2\2?@\7\17\2\2@C\t\2\2\2AB\7\25\2\2BD\7-\2\2CA")
-        buf.write("\3\2\2\2CD\3\2\2\2DE\3\2\2\2EF\7\20\2\2F\7\3\2\2\2GH\7")
-        buf.write(" \2\2HI\7\17\2\2IJ\7+\2\2JK\7\20\2\2K\t\3\2\2\2LO\5\f")
-        buf.write("\7\2MO\5\16\b\2NL\3\2\2\2NM\3\2\2\2O\13\3\2\2\2PQ\7\34")
-        buf.write("\2\2QR\t\3\2\2RS\7\35\2\2SW\7\23\2\2TX\5\6\4\2UX\5\b\5")
-        buf.write("\2VX\5\n\6\2WT\3\2\2\2WU\3\2\2\2WV\3\2\2\2Xa\3\2\2\2Y")
-        buf.write("]\7\31\2\2Z^\5\6\4\2[^\5\b\5\2\\^\5\n\6\2]Z\3\2\2\2][")
-        buf.write("\3\2\2\2]\\\3\2\2\2^`\3\2\2\2_Y\3\2\2\2`c\3\2\2\2a_\3")
-        buf.write("\2\2\2ab\3\2\2\2bd\3\2\2\2ca\3\2\2\2de\7\24\2\2e\r\3\2")
-        buf.write("\2\2fg\7\34\2\2gh\7#\2\2hi\7+\2\2ij\7$\2\2jk\7+\2\2ko")
-        buf.write("\7\23\2\2lp\5\6\4\2mp\5\b\5\2np\5\n\6\2ol\3\2\2\2om\3")
-        buf.write("\2\2\2on\3\2\2\2py\3\2\2\2qu\7\31\2\2rv\5\6\4\2sv\5\b")
-        buf.write("\5\2tv\5\n\6\2ur\3\2\2\2us\3\2\2\2ut\3\2\2\2vx\3\2\2\2")
-        buf.write("wq\3\2\2\2x{\3\2\2\2yw\3\2\2\2yz\3\2\2\2z|\3\2\2\2{y\3")
-        buf.write("\2\2\2|}\7\24\2\2}\17\3\2\2\2~\u008c\7+\2\2\177\u0084")
-        buf.write("\7\3\2\2\u0080\u0081\7+\2\2\u0081\u0083\7\25\2\2\u0082")
-        buf.write("\u0080\3\2\2\2\u0083\u0086\3\2\2\2\u0084\u0082\3\2\2\2")
-        buf.write("\u0084\u0085\3\2\2\2\u0085\u0087\3\2\2\2\u0086\u0084\3")
-        buf.write("\2\2\2\u0087\u0088\7+\2\2\u0088\u008d\7\4\2\2\u0089\u008d")
-        buf.write("\3\2\2\2\u008a\u008b\7\3\2\2\u008b\u008d\7\4\2\2\u008c")
-        buf.write("\177\3\2\2\2\u008c\u0089\3\2\2\2\u008c\u008a\3\2\2\2\u008d")
-        buf.write("\21\3\2\2\2\u008e\u0095\5\24\13\2\u008f\u0095\5\26\f\2")
-        buf.write("\u0090\u0095\5\30\r\2\u0091\u0095\5\32\16\2\u0092\u0095")
-        buf.write("\5\34\17\2\u0093\u0095\5\36\20\2\u0094\u008e\3\2\2\2\u0094")
-        buf.write("\u008f\3\2\2\2\u0094\u0090\3\2\2\2\u0094\u0091\3\2\2\2")
-        buf.write("\u0094\u0092\3\2\2\2\u0094\u0093\3\2\2\2\u0095\u0096\3")
-        buf.write("\2\2\2\u0096\u0097\7\26\2\2\u0097\23\3\2\2\2\u0098\u0099")
-        buf.write("\7\7\2\2\u0099\u009a\7\33\2\2\u009a\u009b\7+\2\2\u009b")
-        buf.write("\u009c\7\32\2\2\u009c\u009d\7\60\2\2\u009d\25\3\2\2\2")
-        buf.write("\u009e\u009f\7\t\2\2\u009f\u00a0\7\33\2\2\u00a0\u00a1")
-        buf.write("\7+\2\2\u00a1\u00a2\7\32\2\2\u00a2\u00a3\7/\2\2\u00a3")
-        buf.write("\27\3\2\2\2\u00a4\u00a5\7\n\2\2\u00a5\u00a6\7\33\2\2\u00a6")
-        buf.write("\u00a7\7+\2\2\u00a7\u00a8\7\32\2\2\u00a8\u00a9\t\3\2\2")
-        buf.write("\u00a9\31\3\2\2\2\u00aa\u00ab\7\13\2\2\u00ab\u00ac\7\33")
-        buf.write("\2\2\u00ac\u00ad\7+\2\2\u00ad\u00ae\7\32\2\2\u00ae\u00af")
-        buf.write("\7.\2\2\u00af\33\3\2\2\2\u00b0\u00b1\7\b\2\2\u00b1\u00b2")
-        buf.write("\7\33\2\2\u00b2\u00b3\7+\2\2\u00b3\u00b4\7\32\2\2\u00b4")
-        buf.write("\u00b5\t\2\2\2\u00b5\35\3\2\2\2\u00b6\u00b7\7\f\2\2\u00b7")
-        buf.write("\u00b8\7\17\2\2\u00b8\u00b9\7\16\2\2\u00b9\u00ba\7\20")
-        buf.write("\2\2\u00ba\u00bb\7\33\2\2\u00bb\u00bc\7+\2\2\u00bc\u00bd")
-        buf.write("\7\32\2\2\u00bd\u00be\7\61\2\2\u00be\37\3\2\2\2\u00bf")
-        buf.write("\u00c0\7\r\2\2\u00c0\u00cd\7+\2\2\u00c1\u00c6\7\3\2\2")
-        buf.write("\u00c2\u00c3\7+\2\2\u00c3\u00c5\7\25\2\2\u00c4\u00c2\3")
-        buf.write("\2\2\2\u00c5\u00c8\3\2\2\2\u00c6\u00c4\3\2\2\2\u00c6\u00c7")
-        buf.write("\3\2\2\2\u00c7\u00c9\3\2\2\2\u00c8\u00c6\3\2\2\2\u00c9")
-        buf.write("\u00ca\7+\2\2\u00ca\u00ce\7\4\2\2\u00cb\u00cc\7\3\2\2")
-        buf.write("\u00cc\u00ce\7\4\2\2\u00cd\u00c1\3\2\2\2\u00cd\u00cb\3")
-        buf.write("\2\2\2\u00ce\u00cf\3\2\2\2\u00cf\u00d2\7%\2\2\u00d0\u00d3")
-        buf.write("\5\4\3\2\u00d1\u00d3\5\22\n\2\u00d2\u00d0\3\2\2\2\u00d2")
-        buf.write("\u00d1\3\2\2\2\u00d3\u00d4\3\2\2\2\u00d4\u00d2\3\2\2\2")
-        buf.write("\u00d4\u00d5\3\2\2\2\u00d5\u00d6\3\2\2\2\u00d6\u00d7\7")
-        buf.write("&\2\2\u00d7!\3\2\2\2\25%\'.8CNW]aouy\u0084\u008c\u0094")
-        buf.write("\u00c6\u00cd\u00d2\u00d4")
+        buf.write("\5\3\6\3\6\5\6O\n\6\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\5")
+        buf.write("\7Y\n\7\3\7\3\7\3\7\3\7\3\7\5\7`\n\7\7\7b\n\7\f\7\16\7")
+        buf.write("e\13\7\3\7\3\7\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b")
+        buf.write("\5\bs\n\b\3\b\3\b\3\b\3\b\3\b\5\bz\n\b\7\b|\n\b\f\b\16")
+        buf.write("\b\177\13\b\3\b\3\b\3\t\3\t\3\t\3\t\7\t\u0087\n\t\f\t")
+        buf.write("\16\t\u008a\13\t\3\t\3\t\3\t\3\t\3\t\5\t\u0091\n\t\3\n")
+        buf.write("\3\n\3\n\3\n\3\n\3\n\5\n\u0099\n\n\3\n\3\n\3\13\3\13\3")
+        buf.write("\13\3\13\3\13\3\13\3\f\3\f\3\f\3\f\3\f\3\f\3\r\3\r\3\r")
+        buf.write("\3\r\3\r\3\r\3\16\3\16\3\16\3\16\3\16\3\16\3\17\3\17\3")
+        buf.write("\17\3\17\3\17\3\17\3\20\3\20\3\20\3\20\3\20\3\20\3\20")
+        buf.write("\3\20\3\20\3\21\3\21\3\21\3\21\3\21\7\21\u00c9\n\21\f")
+        buf.write("\21\16\21\u00cc\13\21\3\21\3\21\3\21\3\21\5\21\u00d2\n")
+        buf.write("\21\3\21\3\21\3\21\6\21\u00d7\n\21\r\21\16\21\u00d8\3")
+        buf.write("\21\3\21\3\21\2\2\22\2\4\6\b\n\f\16\20\22\24\26\30\32")
+        buf.write("\34\36 \2\4\4\2\5\5++\4\2++--\2\u00f0\2%\3\2\2\2\48\3")
+        buf.write("\2\2\2\6<\3\2\2\2\bG\3\2\2\2\nN\3\2\2\2\fP\3\2\2\2\16")
+        buf.write("h\3\2\2\2\20\u0082\3\2\2\2\22\u0098\3\2\2\2\24\u009c\3")
+        buf.write("\2\2\2\26\u00a2\3\2\2\2\30\u00a8\3\2\2\2\32\u00ae\3\2")
+        buf.write("\2\2\34\u00b4\3\2\2\2\36\u00ba\3\2\2\2 \u00c3\3\2\2\2")
+        buf.write("\"&\5\22\n\2#&\5\4\3\2$&\5 \21\2%\"\3\2\2\2%#\3\2\2\2")
+        buf.write("%$\3\2\2\2&\'\3\2\2\2\'%\3\2\2\2\'(\3\2\2\2(.\3\2\2\2")
+        buf.write(")*\5\b\5\2*+\7\26\2\2+-\3\2\2\2,)\3\2\2\2-\60\3\2\2\2")
+        buf.write(".,\3\2\2\2./\3\2\2\2/\61\3\2\2\2\60.\3\2\2\2\61\62\7\2")
+        buf.write("\2\3\62\3\3\2\2\2\639\5\6\4\2\649\5\f\7\2\659\5\16\b\2")
+        buf.write("\669\5\b\5\2\679\5\20\t\28\63\3\2\2\28\64\3\2\2\28\65")
+        buf.write("\3\2\2\28\66\3\2\2\28\67\3\2\2\29:\3\2\2\2:;\7\26\2\2")
+        buf.write(";\5\3\2\2\2<=\7+\2\2=>\7\27\2\2>?\7\36\2\2?@\7\17\2\2")
+        buf.write("@C\t\2\2\2AB\7\25\2\2BD\7-\2\2CA\3\2\2\2CD\3\2\2\2DE\3")
+        buf.write("\2\2\2EF\7\20\2\2F\7\3\2\2\2GH\7 \2\2HI\7\17\2\2IJ\7+")
+        buf.write("\2\2JK\7\20\2\2K\t\3\2\2\2LO\5\f\7\2MO\5\16\b\2NL\3\2")
+        buf.write("\2\2NM\3\2\2\2O\13\3\2\2\2PQ\7\34\2\2QR\t\3\2\2RS\7\35")
+        buf.write("\2\2SX\7\23\2\2TY\5\6\4\2UY\5\b\5\2VY\5\n\6\2WY\5\30\r")
+        buf.write("\2XT\3\2\2\2XU\3\2\2\2XV\3\2\2\2XW\3\2\2\2Yc\3\2\2\2Z")
+        buf.write("_\7\31\2\2[`\5\6\4\2\\`\5\b\5\2]`\5\n\6\2^`\5\30\r\2_")
+        buf.write("[\3\2\2\2_\\\3\2\2\2_]\3\2\2\2_^\3\2\2\2`b\3\2\2\2aZ\3")
+        buf.write("\2\2\2be\3\2\2\2ca\3\2\2\2cd\3\2\2\2df\3\2\2\2ec\3\2\2")
+        buf.write("\2fg\7\24\2\2g\r\3\2\2\2hi\7\34\2\2ij\7#\2\2jk\7+\2\2")
+        buf.write("kl\7$\2\2lm\7+\2\2mr\7\23\2\2ns\5\6\4\2os\5\b\5\2ps\5")
+        buf.write("\n\6\2qs\5\30\r\2rn\3\2\2\2ro\3\2\2\2rp\3\2\2\2rq\3\2")
+        buf.write("\2\2s}\3\2\2\2ty\7\31\2\2uz\5\6\4\2vz\5\b\5\2wz\5\n\6")
+        buf.write("\2xz\5\30\r\2yu\3\2\2\2yv\3\2\2\2yw\3\2\2\2yx\3\2\2\2")
+        buf.write("z|\3\2\2\2{t\3\2\2\2|\177\3\2\2\2}{\3\2\2\2}~\3\2\2\2")
+        buf.write("~\u0080\3\2\2\2\177}\3\2\2\2\u0080\u0081\7\24\2\2\u0081")
+        buf.write("\17\3\2\2\2\u0082\u0090\7+\2\2\u0083\u0088\7\3\2\2\u0084")
+        buf.write("\u0085\7+\2\2\u0085\u0087\7\25\2\2\u0086\u0084\3\2\2\2")
+        buf.write("\u0087\u008a\3\2\2\2\u0088\u0086\3\2\2\2\u0088\u0089\3")
+        buf.write("\2\2\2\u0089\u008b\3\2\2\2\u008a\u0088\3\2\2\2\u008b\u008c")
+        buf.write("\7+\2\2\u008c\u0091\7\4\2\2\u008d\u0091\3\2\2\2\u008e")
+        buf.write("\u008f\7\3\2\2\u008f\u0091\7\4\2\2\u0090\u0083\3\2\2\2")
+        buf.write("\u0090\u008d\3\2\2\2\u0090\u008e\3\2\2\2\u0091\21\3\2")
+        buf.write("\2\2\u0092\u0099\5\24\13\2\u0093\u0099\5\26\f\2\u0094")
+        buf.write("\u0099\5\30\r\2\u0095\u0099\5\32\16\2\u0096\u0099\5\34")
+        buf.write("\17\2\u0097\u0099\5\36\20\2\u0098\u0092\3\2\2\2\u0098")
+        buf.write("\u0093\3\2\2\2\u0098\u0094\3\2\2\2\u0098\u0095\3\2\2\2")
+        buf.write("\u0098\u0096\3\2\2\2\u0098\u0097\3\2\2\2\u0099\u009a\3")
+        buf.write("\2\2\2\u009a\u009b\7\26\2\2\u009b\23\3\2\2\2\u009c\u009d")
+        buf.write("\7\7\2\2\u009d\u009e\7\33\2\2\u009e\u009f\7+\2\2\u009f")
+        buf.write("\u00a0\7\32\2\2\u00a0\u00a1\7\60\2\2\u00a1\25\3\2\2\2")
+        buf.write("\u00a2\u00a3\7\t\2\2\u00a3\u00a4\7\33\2\2\u00a4\u00a5")
+        buf.write("\7+\2\2\u00a5\u00a6\7\32\2\2\u00a6\u00a7\7/\2\2\u00a7")
+        buf.write("\27\3\2\2\2\u00a8\u00a9\7\n\2\2\u00a9\u00aa\7\33\2\2\u00aa")
+        buf.write("\u00ab\7+\2\2\u00ab\u00ac\7\32\2\2\u00ac\u00ad\t\3\2\2")
+        buf.write("\u00ad\31\3\2\2\2\u00ae\u00af\7\13\2\2\u00af\u00b0\7\33")
+        buf.write("\2\2\u00b0\u00b1\7+\2\2\u00b1\u00b2\7\32\2\2\u00b2\u00b3")
+        buf.write("\7.\2\2\u00b3\33\3\2\2\2\u00b4\u00b5\7\b\2\2\u00b5\u00b6")
+        buf.write("\7\33\2\2\u00b6\u00b7\7+\2\2\u00b7\u00b8\7\32\2\2\u00b8")
+        buf.write("\u00b9\t\2\2\2\u00b9\35\3\2\2\2\u00ba\u00bb\7\f\2\2\u00bb")
+        buf.write("\u00bc\7\17\2\2\u00bc\u00bd\7\16\2\2\u00bd\u00be\7\20")
+        buf.write("\2\2\u00be\u00bf\7\33\2\2\u00bf\u00c0\7+\2\2\u00c0\u00c1")
+        buf.write("\7\32\2\2\u00c1\u00c2\7\61\2\2\u00c2\37\3\2\2\2\u00c3")
+        buf.write("\u00c4\7\r\2\2\u00c4\u00d1\7+\2\2\u00c5\u00ca\7\3\2\2")
+        buf.write("\u00c6\u00c7\7+\2\2\u00c7\u00c9\7\25\2\2\u00c8\u00c6\3")
+        buf.write("\2\2\2\u00c9\u00cc\3\2\2\2\u00ca\u00c8\3\2\2\2\u00ca\u00cb")
+        buf.write("\3\2\2\2\u00cb\u00cd\3\2\2\2\u00cc\u00ca\3\2\2\2\u00cd")
+        buf.write("\u00ce\7+\2\2\u00ce\u00d2\7\4\2\2\u00cf\u00d0\7\3\2\2")
+        buf.write("\u00d0\u00d2\7\4\2\2\u00d1\u00c5\3\2\2\2\u00d1\u00cf\3")
+        buf.write("\2\2\2\u00d2\u00d3\3\2\2\2\u00d3\u00d6\7%\2\2\u00d4\u00d7")
+        buf.write("\5\4\3\2\u00d5\u00d7\5\22\n\2\u00d6\u00d4\3\2\2\2\u00d6")
+        buf.write("\u00d5\3\2\2\2\u00d7\u00d8\3\2\2\2\u00d8\u00d6\3\2\2\2")
+        buf.write("\u00d8\u00d9\3\2\2\2\u00d9\u00da\3\2\2\2\u00da\u00db\7")
+        buf.write("&\2\2\u00db!\3\2\2\2\25%\'.8CNX_cry}\u0088\u0090\u0098")
+        buf.write("\u00ca\u00d1\u00d6\u00d8")
         return buf.getvalue()
 
 
@@ -673,6 +676,13 @@ class cubixParser ( Parser ):
                 return self.getTypedRuleContext(cubixParser.LoopContext,i)
 
 
+        def numberInitalization(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(cubixParser.NumberInitalizationContext)
+            else:
+                return self.getTypedRuleContext(cubixParser.NumberInitalizationContext,i)
+
+
         def PLUS(self, i:int=None):
             if i is None:
                 return self.getTokens(cubixParser.PLUS)
@@ -713,7 +723,7 @@ class cubixParser ( Parser ):
             self.match(cubixParser.TIMES)
             self.state = 81
             self.match(cubixParser.LeftCurlyBracket)
-            self.state = 85
+            self.state = 86
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [cubixParser.VariableName]:
@@ -728,38 +738,46 @@ class cubixParser ( Parser ):
                 self.state = 84
                 self.loop()
                 pass
+            elif token in [cubixParser.NUM]:
+                self.state = 85
+                self.numberInitalization()
+                pass
             else:
                 raise NoViableAltException(self)
 
-            self.state = 95
+            self.state = 97
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==cubixParser.PLUS:
-                self.state = 87
+                self.state = 88
                 self.match(cubixParser.PLUS)
-                self.state = 91
+                self.state = 93
                 self._errHandler.sync(self)
                 token = self._input.LA(1)
                 if token in [cubixParser.VariableName]:
-                    self.state = 88
+                    self.state = 89
                     self.algorithmExecution()
                     pass
                 elif token in [cubixParser.SHOW]:
-                    self.state = 89
+                    self.state = 90
                     self.show()
                     pass
                 elif token in [cubixParser.LOOP]:
-                    self.state = 90
+                    self.state = 91
                     self.loop()
+                    pass
+                elif token in [cubixParser.NUM]:
+                    self.state = 92
+                    self.numberInitalization()
                     pass
                 else:
                     raise NoViableAltException(self)
 
-                self.state = 97
+                self.state = 99
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 98
+            self.state = 100
             self.match(cubixParser.RightCurlyBracket)
         except RecognitionException as re:
             localctx.exception = re
@@ -819,6 +837,13 @@ class cubixParser ( Parser ):
                 return self.getTypedRuleContext(cubixParser.LoopContext,i)
 
 
+        def numberInitalization(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(cubixParser.NumberInitalizationContext)
+            else:
+                return self.getTypedRuleContext(cubixParser.NumberInitalizationContext,i)
+
+
         def PLUS(self, i:int=None):
             if i is None:
                 return self.getTokens(cubixParser.PLUS)
@@ -846,65 +871,73 @@ class cubixParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 100
-            self.match(cubixParser.LOOP)
-            self.state = 101
-            self.match(cubixParser.IN)
             self.state = 102
-            self.match(cubixParser.VariableName)
+            self.match(cubixParser.LOOP)
             self.state = 103
-            self.match(cubixParser.USING)
+            self.match(cubixParser.IN)
             self.state = 104
             self.match(cubixParser.VariableName)
             self.state = 105
+            self.match(cubixParser.USING)
+            self.state = 106
+            self.match(cubixParser.VariableName)
+            self.state = 107
             self.match(cubixParser.LeftCurlyBracket)
-            self.state = 109
+            self.state = 112
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [cubixParser.VariableName]:
-                self.state = 106
+                self.state = 108
                 self.algorithmExecution()
                 pass
             elif token in [cubixParser.SHOW]:
-                self.state = 107
+                self.state = 109
                 self.show()
                 pass
             elif token in [cubixParser.LOOP]:
-                self.state = 108
+                self.state = 110
                 self.loop()
+                pass
+            elif token in [cubixParser.NUM]:
+                self.state = 111
+                self.numberInitalization()
                 pass
             else:
                 raise NoViableAltException(self)
 
-            self.state = 119
+            self.state = 123
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==cubixParser.PLUS:
-                self.state = 111
+                self.state = 114
                 self.match(cubixParser.PLUS)
-                self.state = 115
+                self.state = 119
                 self._errHandler.sync(self)
                 token = self._input.LA(1)
                 if token in [cubixParser.VariableName]:
-                    self.state = 112
+                    self.state = 115
                     self.algorithmExecution()
                     pass
                 elif token in [cubixParser.SHOW]:
-                    self.state = 113
+                    self.state = 116
                     self.show()
                     pass
                 elif token in [cubixParser.LOOP]:
-                    self.state = 114
+                    self.state = 117
                     self.loop()
+                    pass
+                elif token in [cubixParser.NUM]:
+                    self.state = 118
+                    self.numberInitalization()
                     pass
                 else:
                     raise NoViableAltException(self)
 
-                self.state = 121
+                self.state = 125
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 122
+            self.state = 126
             self.match(cubixParser.RightCurlyBracket)
         except RecognitionException as re:
             localctx.exception = re
@@ -954,30 +987,30 @@ class cubixParser ( Parser ):
         self.enterRule(localctx, 14, self.RULE_functionExecution)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 124
+            self.state = 128
             self.match(cubixParser.VariableName)
-            self.state = 138
+            self.state = 142
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,13,self._ctx)
             if la_ == 1:
-                self.state = 125
+                self.state = 129
                 self.match(cubixParser.T__0)
-                self.state = 130
+                self.state = 134
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,12,self._ctx)
                 while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                     if _alt==1:
-                        self.state = 126
+                        self.state = 130
                         self.match(cubixParser.VariableName)
-                        self.state = 127
+                        self.state = 131
                         self.match(cubixParser.COMMA) 
-                    self.state = 132
+                    self.state = 136
                     self._errHandler.sync(self)
                     _alt = self._interp.adaptivePredict(self._input,12,self._ctx)
 
-                self.state = 133
+                self.state = 137
                 self.match(cubixParser.VariableName)
-                self.state = 134
+                self.state = 138
                 self.match(cubixParser.T__1)
                 pass
 
@@ -985,9 +1018,9 @@ class cubixParser ( Parser ):
                 pass
 
             elif la_ == 3:
-                self.state = 136
+                self.state = 140
                 self.match(cubixParser.T__0)
-                self.state = 137
+                self.state = 141
                 self.match(cubixParser.T__1)
                 pass
 
@@ -1055,37 +1088,37 @@ class cubixParser ( Parser ):
         self.enterRule(localctx, 16, self.RULE_expression)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 146
+            self.state = 150
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [cubixParser.CUBE]:
-                self.state = 140
+                self.state = 144
                 self.cubeInitialization()
                 pass
             elif token in [cubixParser.ALGO]:
-                self.state = 141
+                self.state = 145
                 self.algorithmInitalization()
                 pass
             elif token in [cubixParser.NUM]:
-                self.state = 142
+                self.state = 146
                 self.numberInitalization()
                 pass
             elif token in [cubixParser.SETTING]:
-                self.state = 143
+                self.state = 147
                 self.settingInitalization()
                 pass
             elif token in [cubixParser.MOVE]:
-                self.state = 144
+                self.state = 148
                 self.moveInitalization()
                 pass
             elif token in [cubixParser.ARRAY]:
-                self.state = 145
+                self.state = 149
                 self.arrayInitalization()
                 pass
             else:
                 raise NoViableAltException(self)
 
-            self.state = 148
+            self.state = 152
             self.match(cubixParser.SEMICOLON)
         except RecognitionException as re:
             localctx.exception = re
@@ -1138,15 +1171,15 @@ class cubixParser ( Parser ):
         self.enterRule(localctx, 18, self.RULE_cubeInitialization)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 150
-            self.match(cubixParser.CUBE)
-            self.state = 151
-            self.match(cubixParser.COLON)
-            self.state = 152
-            self.match(cubixParser.VariableName)
-            self.state = 153
-            self.match(cubixParser.ASSIGN)
             self.state = 154
+            self.match(cubixParser.CUBE)
+            self.state = 155
+            self.match(cubixParser.COLON)
+            self.state = 156
+            self.match(cubixParser.VariableName)
+            self.state = 157
+            self.match(cubixParser.ASSIGN)
+            self.state = 158
             self.match(cubixParser.CubeValue)
         except RecognitionException as re:
             localctx.exception = re
@@ -1199,15 +1232,15 @@ class cubixParser ( Parser ):
         self.enterRule(localctx, 20, self.RULE_algorithmInitalization)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 156
-            self.match(cubixParser.ALGO)
-            self.state = 157
-            self.match(cubixParser.COLON)
-            self.state = 158
-            self.match(cubixParser.VariableName)
-            self.state = 159
-            self.match(cubixParser.ASSIGN)
             self.state = 160
+            self.match(cubixParser.ALGO)
+            self.state = 161
+            self.match(cubixParser.COLON)
+            self.state = 162
+            self.match(cubixParser.VariableName)
+            self.state = 163
+            self.match(cubixParser.ASSIGN)
+            self.state = 164
             self.match(cubixParser.AlgorithmValue)
         except RecognitionException as re:
             localctx.exception = re
@@ -1264,15 +1297,15 @@ class cubixParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 162
-            self.match(cubixParser.NUM)
-            self.state = 163
-            self.match(cubixParser.COLON)
-            self.state = 164
-            self.match(cubixParser.VariableName)
-            self.state = 165
-            self.match(cubixParser.ASSIGN)
             self.state = 166
+            self.match(cubixParser.NUM)
+            self.state = 167
+            self.match(cubixParser.COLON)
+            self.state = 168
+            self.match(cubixParser.VariableName)
+            self.state = 169
+            self.match(cubixParser.ASSIGN)
+            self.state = 170
             _la = self._input.LA(1)
             if not(_la==cubixParser.VariableName or _la==cubixParser.NUMBER):
                 self._errHandler.recoverInline(self)
@@ -1330,15 +1363,15 @@ class cubixParser ( Parser ):
         self.enterRule(localctx, 24, self.RULE_settingInitalization)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 168
-            self.match(cubixParser.SETTING)
-            self.state = 169
-            self.match(cubixParser.COLON)
-            self.state = 170
-            self.match(cubixParser.VariableName)
-            self.state = 171
-            self.match(cubixParser.ASSIGN)
             self.state = 172
+            self.match(cubixParser.SETTING)
+            self.state = 173
+            self.match(cubixParser.COLON)
+            self.state = 174
+            self.match(cubixParser.VariableName)
+            self.state = 175
+            self.match(cubixParser.ASSIGN)
+            self.state = 176
             self.match(cubixParser.SettingValue)
         except RecognitionException as re:
             localctx.exception = re
@@ -1395,15 +1428,15 @@ class cubixParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 174
-            self.match(cubixParser.MOVE)
-            self.state = 175
-            self.match(cubixParser.COLON)
-            self.state = 176
-            self.match(cubixParser.VariableName)
-            self.state = 177
-            self.match(cubixParser.ASSIGN)
             self.state = 178
+            self.match(cubixParser.MOVE)
+            self.state = 179
+            self.match(cubixParser.COLON)
+            self.state = 180
+            self.match(cubixParser.VariableName)
+            self.state = 181
+            self.match(cubixParser.ASSIGN)
+            self.state = 182
             _la = self._input.LA(1)
             if not(_la==cubixParser.MOVEVALUE or _la==cubixParser.VariableName):
                 self._errHandler.recoverInline(self)
@@ -1470,21 +1503,21 @@ class cubixParser ( Parser ):
         self.enterRule(localctx, 28, self.RULE_arrayInitalization)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 180
-            self.match(cubixParser.ARRAY)
-            self.state = 181
-            self.match(cubixParser.LeftRoundBracket)
-            self.state = 182
-            self.match(cubixParser.Type)
-            self.state = 183
-            self.match(cubixParser.RightRoundBracket)
             self.state = 184
-            self.match(cubixParser.COLON)
+            self.match(cubixParser.ARRAY)
             self.state = 185
-            self.match(cubixParser.VariableName)
+            self.match(cubixParser.LeftRoundBracket)
             self.state = 186
-            self.match(cubixParser.ASSIGN)
+            self.match(cubixParser.Type)
             self.state = 187
+            self.match(cubixParser.RightRoundBracket)
+            self.state = 188
+            self.match(cubixParser.COLON)
+            self.state = 189
+            self.match(cubixParser.VariableName)
+            self.state = 190
+            self.match(cubixParser.ASSIGN)
+            self.state = 191
             self.match(cubixParser.ArrayValue)
         except RecognitionException as re:
             localctx.exception = re
@@ -1558,70 +1591,70 @@ class cubixParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 189
+            self.state = 193
             self.match(cubixParser.FUNC)
-            self.state = 190
+            self.state = 194
             self.match(cubixParser.VariableName)
-            self.state = 203
+            self.state = 207
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,16,self._ctx)
             if la_ == 1:
-                self.state = 191
+                self.state = 195
                 self.match(cubixParser.T__0)
-                self.state = 196
+                self.state = 200
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,15,self._ctx)
                 while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                     if _alt==1:
-                        self.state = 192
+                        self.state = 196
                         self.match(cubixParser.VariableName)
-                        self.state = 193
+                        self.state = 197
                         self.match(cubixParser.COMMA) 
-                    self.state = 198
+                    self.state = 202
                     self._errHandler.sync(self)
                     _alt = self._interp.adaptivePredict(self._input,15,self._ctx)
 
-                self.state = 199
+                self.state = 203
                 self.match(cubixParser.VariableName)
-                self.state = 200
+                self.state = 204
                 self.match(cubixParser.T__1)
                 pass
 
             elif la_ == 2:
-                self.state = 201
+                self.state = 205
                 self.match(cubixParser.T__0)
-                self.state = 202
+                self.state = 206
                 self.match(cubixParser.T__1)
                 pass
 
 
-            self.state = 205
+            self.state = 209
             self.match(cubixParser.BEGIN)
-            self.state = 208 
+            self.state = 212 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
-                self.state = 208
+                self.state = 212
                 self._errHandler.sync(self)
                 token = self._input.LA(1)
                 if token in [cubixParser.LOOP, cubixParser.SHOW, cubixParser.VariableName]:
-                    self.state = 206
+                    self.state = 210
                     self.statement()
                     pass
                 elif token in [cubixParser.CUBE, cubixParser.MOVE, cubixParser.ALGO, cubixParser.NUM, cubixParser.SETTING, cubixParser.ARRAY]:
-                    self.state = 207
+                    self.state = 211
                     self.expression()
                     pass
                 else:
                     raise NoViableAltException(self)
 
-                self.state = 210 
+                self.state = 214 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << cubixParser.CUBE) | (1 << cubixParser.MOVE) | (1 << cubixParser.ALGO) | (1 << cubixParser.NUM) | (1 << cubixParser.SETTING) | (1 << cubixParser.ARRAY) | (1 << cubixParser.LOOP) | (1 << cubixParser.SHOW) | (1 << cubixParser.VariableName))) != 0)):
                     break
 
-            self.state = 212
+            self.state = 216
             self.match(cubixParser.END)
         except RecognitionException as re:
             localctx.exception = re

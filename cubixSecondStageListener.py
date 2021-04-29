@@ -22,19 +22,30 @@ class CubixSecondStageListener(CubixListener):
     def __init__(self, output, functionsDeclarations):
         self.output = output
         self.output.write(initial_html)
-        self.variablesDictionary = {}
+        self.variablesDictionaries = []
         self.functionsDeclarations = functionsDeclarations
+
+
+
+
+    def enterStart(self, ctx):
+        self.variablesDictionaries.append({})
+
+    def exitStart(self, ctx):
+        print(f"\n{self.variablesDictionaries}")
+        self.output.write(ending_html)
+
+        
 
 
     def enterCubeInitialization(self, ctx):
         cubeVarName = ctx.VariableName().getText()
+        cubeVarValue = ctx.CubeValue().getText()
         
-        if(cubeVarName in self.variablesDictionary.keys()):
+        if self.variableExist(cubeVarName):
             raise VariableExistsException(cubeVarName)
 
         else:
-            
-            cubeVarValue = ctx.CubeValue().getText()
             cubeVarState = cubeVarValue[5:len(cubeVarValue)-1]
 
             if cubeVarState == '"solved"':
@@ -48,49 +59,48 @@ class CubixSecondStageListener(CubixListener):
                 #generate x3dom cube with given sett
                 pass
 
-
-            self.variablesDictionary[cubeVarName] = cubeVarState
+            self.assignVariable(cubeVarName, cubeVarState)
 
 
     def enterMoveInitalization(self, ctx):
 
-        move_var_name = ctx.VariableName(0).getText()
-        move_var_value = str(ctx.MOVEVALUE()) if ctx.MOVEVALUE() is not None else str(ctx.VariableName(1))
+        moveVarName = ctx.VariableName(0).getText()
+        moveVarValue = str(ctx.MOVEVALUE()) if ctx.MOVEVALUE() is not None else str(ctx.VariableName(1))
 
-        if(move_var_name in self.variablesDictionary.keys()):
-            raise VariableExistsException(str(move_var_name))
+        if self.variableExist(moveVarName):
+            raise VariableExistsException(str(moveVarName))
 
         else:
-            self.assignVariable(move_var_name, move_var_value)
+            self.assignVariable(moveVarName, moveVarValue)
 
 
 
 
     def enterAlgorithmInitalization(self, ctx):
         
-        algo_name = ctx.VariableName().getText()
-        algo_value = ctx.AlgorithmValue().getText().replace(" ","")[1:-1].split(",")
+        algorithmName = ctx.VariableName().getText()
+        algorithmValue = ctx.AlgorithmValue().getText().replace(" ","")[1:-1].split(",")
 
-        tmp_arr = []
+        tmpArr = []
 
-        if(algo_name in self.variablesDictionary.keys()):
-            raise VariableExistsException(str(algo_name))
+        if self.variableExist(algorithmName):
+            raise VariableExistsException(str(algorithmName))
         
         else:
             
             # check if values in algo are valid
-            for item in algo_value:
+            for item in algorithmValue:
                 
                 # check if item is default move value
                 if item not in self.MOVEVALUES:
 
                     # check if item is given as variable of move value
-                    if item in self.variablesDictionary.keys():
+                    if self.variableExist(item):
 
-                        found_var_name_val = self.variablesDictionary[item]
+                        foundVarNameVal = self.variableGet(item)
 
-                        if found_var_name_val in self.MOVEVALUES: 
-                            tmp_arr.append(found_var_name_val)
+                        if foundVarNameVal in self.MOVEVALUES: 
+                            tmpArr.append(foundVarNameVal)
                         else:
                             raise InvalidVariableValueException()
                             
@@ -99,55 +109,54 @@ class CubixSecondStageListener(CubixListener):
                         raise VariableNotExistsException(item)
 
                 else:
-                    tmp_arr.append(item)
+                    tmpArr.append(item)
 
-        self.assignVariable(algo_name, tmp_arr)
+        self.assignVariable(algorithmName, tmpArr)
                 
 
     def enterSettingInitalization(self, ctx):
-        sett_name = ctx.VariableName().getText()
-        sett_value = ctx.SettingValue().getText().replace(" ","").replace("\n","")
+        settingName = ctx.VariableName().getText()
+        settingValue = ctx.SettingValue().getText().replace(" ","").replace("\n","")
 
-        if(sett_name in self.variablesDictionary.keys()):
-            raise VariableExistsException(str(sett_name))
+        if self.variableExist(settingName):
+            raise VariableExistsException(str(settingName))
         else:
-            self.assignVariable(sett_name,sett_value)
+            self.assignVariable(settingName,settingValue)
             
 
 
     def enterArrayInitalization(self, ctx):
-        arr_name = ctx.VariableName().getText()
-        arr_type = ctx.Type().getText()[1:]
-        arr_value = ctx.ArrayValue().getText().replace(" ","")[1:-1].split(",")
+        arrName = ctx.VariableName().getText()
+        arrType = ctx.Type().getText()[1:]
+        arrValue = ctx.ArrayValue().getText().replace(" ","")[1:-1].split(",")
 
-        tmp_arr = []
+        tmpArr = []
 
-        if(arr_name in self.variablesDictionary.keys()):
-            raise VariableExistsException(str(arr_name))
+        if self.variableExist(arrName):
+            raise VariableExistsException(str(arrName))
 
         else:
-            
-            if arr_type == 'Num':
-                for item in arr_value:
-                
-                    if item in self.variablesDictionary.keys():
-                        found_var_name_val = self.variablesDictionary[item]
-                        if not isinstance(found_var_name_val,list) and found_var_name_val.isnumeric(): 
-                            tmp_arr.append(found_var_name_val)
+            if arrType == 'Num':
+                for item in arrValue:
+                    if self.variableExist(item):
+
+                        foundVarNameVal = self.variableGet(item)
+                        if not isinstance(foundVarNameVal,list) and foundVarNameVal.isnumeric(): 
+                            tmpArr.append(foundVarNameVal)
                         else:
                             raise InvalidVariableValueException()
 
                     elif item.isnumeric():
-                        tmp_arr.append(item)
+                        tmpArr.append(item)
 
                     else:
                         raise VariableNotExistsException(item)
         
                     
-            elif(arr_type == 'Move'):
+            elif(arrType == 'Move'):
                 pass
         
-        self.assignVariable(arr_name,tmp_arr)
+        self.assignVariable(arrName,tmpArr)
             
 
 
@@ -156,32 +165,26 @@ class CubixSecondStageListener(CubixListener):
         numberName = ctx.VariableName(0).getText()
         numberValue = ctx.NUMBER().getText() if ctx.NUMBER() is not None else ctx.VariableName(1).getText()
 
-        if(numberName in self.variablesDictionary.keys()):
+        if self.variableExist(numberName):
             raise VariableExistsException(str(numberName))
         else:
             self.assignVariable(numberName, numberValue)
 
 
 
-    def assignVariable(self, name, value):
-        if( not isinstance(value, list) and value in self.variablesDictionary.keys()):
-            self.variablesDictionary[name] = self.variablesDictionary[value]
-        else:
-            self.variablesDictionary[name] = value
-
-
 
     def enterAlgorithmExecution(self, ctx):
-        print(f"Execution of algorithm on the cube: {ctx.getText()}")
+        print(f"Execution of algorithm on the cube: {ctx.getText()}") # PLACEMENT
 
 
     def enterShow(self, ctx):
-        show_arg = ctx.VariableName().getText()
+        showArg = ctx.VariableName().getText()
 
-        if show_arg not in self.variablesDictionary.keys():
-            raise VariableNotExistsException(show_arg)
+        if self.variableExist(showArg):
+            print(self.variableGet(showArg))
+        else:
+            raise VariableNotExistsException(showArg)
         
-        print(self.variablesDictionary[show_arg])
 
     
     def enterFunctionExecution(self, ctx):
@@ -189,14 +192,46 @@ class CubixSecondStageListener(CubixListener):
         argStartIdx= ctx.getText().find('<')
         argEndIdx= ctx.getText().find('>')
         numOfArgs = ctx.getText()[argStartIdx:argEndIdx]
-        func_name = ctx.getText()[:argStartIdx]
+        funcName = ctx.getText()[:argStartIdx]
 
-        if func_name not in self.functionsDeclarations:
-            raise FunctionNotExistsException(func_name)
+        if funcName not in self.functionsDeclarations:
+            raise FunctionNotExistsException(funcName)
         else:
-            print(f"Function {func_name} has been executed")
+            print(f"Function {funcName} has been executed") # PLACEMENT
 
 
-    def exitStart(self, ctx):
-        print(f"\n{self.variablesDictionary}")
-        self.output.write(ending_html)
+
+    def enterLoop(self, ctx):
+        self.variablesDictionaries.append({})
+
+    def exitLoop(self, ctx):
+        self.variablesDictionaries.pop()
+
+
+
+
+    def assignVariable(self, name, value):
+        if( not isinstance(value, list) and self.variableExist(value)):
+            self.variableCreate(name, self.variableGet(value))
+        else:
+            self.variableCreate(name, value)
+
+
+
+    def variableExist(self, varName):
+        for dictionary in reversed(self.variablesDictionaries):
+            if varName in dictionary:
+                return True
+
+        return False
+
+    def variableGet(self, varName):
+        for dictionary in reversed(self.variablesDictionaries):
+            if varName in dictionary:
+                return dictionary[varName]
+
+        return None
+
+    def variableCreate(self, varName, varValue):
+        self.variablesDictionaries[-1][varName] = varValue
+    

@@ -62,3 +62,20 @@ Array($Num): arr1 = [1, 2, 4, num1];
 || Array($Num): arr2 = [1, 2, 4, algorythm1];
 
 
+loop 3 times{ 
+
+  Num: var = 3 +
+
+  loop 7 times{ 
+    Num: var1 = 4 +
+    show(var) +
+    show(var1)
+  } + 
+
+  loop in arr1 using item { 
+    show(var1)
+  }  + 
+
+  show(var)
+
+};

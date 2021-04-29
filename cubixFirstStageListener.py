@@ -16,20 +16,20 @@ class CubixFirstStageListener(CubixListener):
 
     def exitFunctionDeclaration(self, ctx):
         func = ctx.getText()
-        func_idx = len("FUNC")
-        args_start_idx = func.find('<')
+        funcId = len("FUNC")
+        argStartId = func.find('<')
 
-        begin_idx = func.find('begin') + len('begin')
-        end_idx = func.find('end')
+        beginId = func.find('begin') + len('begin')
+        endId = func.find('end')
         
-        func_name = func[func_idx:args_start_idx]
-        func_body = func[begin_idx:end_idx].split(";")[:-1]
+        funcName = func[funcId:argStartId]
+        funcBody = func[beginId:endId].split(";")[:-1]
 
 
-        if(func_name in self.functionsDeclarations.keys()):
-            raise FunctionExistsException(func_name)
+        if(funcName in self.functionsDeclarations.keys()):
+            raise FunctionExistsException(funcName)
         else:
-            self.functionsDeclarations[func_name] = func_body
+            self.functionsDeclarations[funcName] = funcBody
         
     
 

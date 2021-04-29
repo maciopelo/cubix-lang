@@ -88,9 +88,9 @@ show: SHOW LeftRoundBracket (VariableName) RightRoundBracket;
 
 loop: (iterationForI | iterationForEach);
 
-iterationForI: LOOP (NUMBER | VariableName) TIMES LeftCurlyBracket (algorithmExecution | show | loop) (PLUS (algorithmExecution | show | loop))* RightCurlyBracket;
+iterationForI: LOOP (NUMBER | VariableName) TIMES LeftCurlyBracket (algorithmExecution | show | loop | cubeInitialization | algorithmInitalization | numberInitalization | settingInitalization | moveInitalization | arrayInitalization) (PLUS (algorithmExecution | show | loop | cubeInitialization | algorithmInitalization | numberInitalization | settingInitalization | moveInitalization | arrayInitalization))* RightCurlyBracket;
 
-iterationForEach: LOOP IN VariableName USING VariableName LeftCurlyBracket (algorithmExecution | show | loop) (PLUS (algorithmExecution | show | loop))* RightCurlyBracket;
+iterationForEach: LOOP IN VariableName USING VariableName LeftCurlyBracket (algorithmExecution | show | loop | cubeInitialization | algorithmInitalization | numberInitalization | settingInitalization | moveInitalization | arrayInitalization) (PLUS (algorithmExecution | show | loop | cubeInitialization | algorithmInitalization | numberInitalization | settingInitalization | moveInitalization | arrayInitalization))* RightCurlyBracket;
 
 functionExecution: VariableName ( ('<' (VariableName COMMA)* VariableName '>') || ('<' '>') );
 
