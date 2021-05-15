@@ -72,10 +72,6 @@ loop 3 times{
     show(var1)
   } + 
 
-  loop in arr1 using item { 
-    show(var1)
-  }  + 
-
   show(var)
 
 };

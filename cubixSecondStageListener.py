@@ -1,8 +1,9 @@
 from cubixListener import cubixListener as CubixListener
-from init import initial_html, ending_html
+from init import initial_html, ending_html, colors_initialization
 from antlr4 import *
 from x3domCube import solvedCube
 from customExceptions import *
+from cube import Cube
 
 
 
@@ -26,8 +27,6 @@ class CubixSecondStageListener(CubixListener):
         self.functionsDeclarations = functionsDeclarations
 
 
-
-
     def enterStart(self, ctx):
         self.variablesDictionaries.append({})
 
@@ -36,8 +35,6 @@ class CubixSecondStageListener(CubixListener):
         self.output.write(ending_html)
 
         
-
-
     def enterCubeInitialization(self, ctx):
         cubeVarName = ctx.VariableName().getText()
         cubeVarValue = ctx.CubeValue().getText()
@@ -46,11 +43,14 @@ class CubixSecondStageListener(CubixListener):
             raise VariableExistsException(cubeVarName)
 
         else:
+            self.output.write(colors_initialization)
             cubeVarState = cubeVarValue[5:len(cubeVarValue)-1]
 
             if cubeVarState == '"solved"':
-                self.output.write(solvedCube)
-
+                #self.output.write(solvedCube)
+                cube = Cube(None)
+                cube.rotate_U()
+                self.output.write(cube.to_x3dom())
             elif cubeVarState == "mixed":
                 #generate x3dom mixed cube
                 pass
