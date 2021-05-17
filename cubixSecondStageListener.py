@@ -42,7 +42,7 @@ class CubixSecondStageListener(CubixListener):
         cubeVarName = ctx.VariableName().getText()
         cubeVarValue = ctx.CubeValue().getText()
         
-        if self.variableExist(cubeVarName):
+        if self.variableExistInLocalScope(cubeVarName):
             raise VariableExistsException(cubeVarName)
 
         else:
@@ -67,7 +67,7 @@ class CubixSecondStageListener(CubixListener):
         moveVarName = ctx.VariableName(0).getText()
         moveVarValue = str(ctx.MOVEVALUE()) if ctx.MOVEVALUE() is not None else str(ctx.VariableName(1))
 
-        if self.variableExist(moveVarName):
+        if self.variableExistInLocalScope(moveVarName):
             raise VariableExistsException(str(moveVarName))
 
         else:
@@ -83,7 +83,7 @@ class CubixSecondStageListener(CubixListener):
 
         tmpArr = []
 
-        if self.variableExist(algorithmName):
+        if self.variableExistInLocalScope(algorithmName):
             raise VariableExistsException(str(algorithmName))
         
         else:
@@ -118,7 +118,7 @@ class CubixSecondStageListener(CubixListener):
         settingName = ctx.VariableName().getText()
         settingValue = ctx.SettingValue().getText().replace(" ","").replace("\n","")
 
-        if self.variableExist(settingName):
+        if self.variableExistInLocalScope(settingName):
             raise VariableExistsException(str(settingName))
         else:
             self.assignVariable(settingName,settingValue)
@@ -132,7 +132,7 @@ class CubixSecondStageListener(CubixListener):
 
         tmpArr = []
 
-        if self.variableExist(arrName):
+        if self.variableExistInLocalScope(arrName):
             raise VariableExistsException(str(arrName))
 
         else:
@@ -165,7 +165,7 @@ class CubixSecondStageListener(CubixListener):
         numberName = ctx.VariableName(0).getText()
         numberValue = ctx.NUMBER().getText() if ctx.NUMBER() is not None else ctx.VariableName(1).getText()
 
-        if self.variableExist(numberName):
+        if self.variableExistInLocalScope(numberName):
             raise VariableExistsException(str(numberName))
         else:
             self.assignVariable(numberName, numberValue)
@@ -204,9 +204,10 @@ class CubixSecondStageListener(CubixListener):
     def enterLoop(self, ctx):
         self.variablesDictionaries.append({})
 
-    def exitLoop(self, ctx):
-        self.variablesDictionaries.pop()
 
+    def exitLoop(self, ctx):
+        x =  self.variablesDictionaries.pop()
+        
 
 
 
@@ -222,6 +223,12 @@ class CubixSecondStageListener(CubixListener):
         for dictionary in reversed(self.variablesDictionaries):
             if varName in dictionary:
                 return True
+
+        return False
+    
+    def variableExistInLocalScope(self, varName):
+        if varName in self.variablesDictionaries[-1]:
+            return True
 
         return False
 

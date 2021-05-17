@@ -7,7 +7,7 @@
 foo1<>;
 foo2<>;
 
-FUNC foo1<arg1, arg2> begin
+FUNC foo1<> begin
 
   Move: n = R;
   Move: n1 = R;
@@ -16,13 +16,11 @@ FUNC foo1<arg1, arg2> begin
 end
 
 
-FUNC foo2<arg1> begin
+FUNC foo2<> begin
 
   Move: re = R;
  
 end
-
-
 
 
 
@@ -68,14 +66,19 @@ loop 3 times{
 
   loop 7 times{ 
     Num: var1 = 4 +
+    Num: m1 = 5 +
+
     show(var) +
-    show(var1)
+    show(var1) +
+    show(m1)
   } + 
 
-  loop in arr1 using item { 
+  |@ loop in arr1 using item { 
     show(var1)
-  }  + 
+  }  + @|
 
-  show(var)
-
+  show(var) +
+  show(m1) +
+  show(ala)
 };
+

@@ -131,13 +131,3 @@ ArrayValue: LeftSquareBracket (VariableName COMMA | NUMBER COMMA)* (VariableName
 Wall: COLOR ASSIGN LeftCurlyBracket COLOR COMMA COLOR COMMA COLOR COMMA COLOR COMMA COLOR COMMA COLOR COMMA COLOR COMMA COLOR RightCurlyBracket;
 
 
-
-/*
-
-FUNC nameOfTheFunc<args*> begin
-
-(statement | expression)+
-
-end
- */
- 
