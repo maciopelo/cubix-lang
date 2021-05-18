@@ -18,12 +18,20 @@ class Cube:
         self.top_center = top_center
 
         #parser
-        red=["red","red","red","red","red","red","red","red"]
-        green=["green","green","green","green","green","green","green","green"]
-        blue= ["blue","blue","blue","blue","blue","blue","blue","blue"]        
-        yellow = ["yellow","yellow","yellow","yellow","yellow","yellow","yellow","yellow"]
-        white=["white","white","white","white","white","white","white","white"]
-        orange=["orange","orange","orange","orange","orange","orange","orange","orange"]
+        if setting is None:
+            red=["red","red","red","red","red","red","red","red"]
+            green=["green","green","green","green","green","green","green","green"]
+            blue= ["blue","blue","blue","blue","blue","blue","blue","blue"]        
+            yellow = ["yellow","yellow","yellow","yellow","yellow","yellow","yellow","yellow"]
+            white=["white","white","white","white","white","white","white","white"]
+            orange=["orange","orange","orange","orange","orange","orange","orange","orange"]
+        else:
+            red = setting["red"]
+            green = setting["green"]
+            blue = setting["blue"]
+            yellow = setting["yellow"]
+            white = setting["white"]
+            orange = setting["orange"]
 
         loc = locals()
         self.right_side = loc[right_center]
@@ -340,7 +348,7 @@ class Cube:
         self.rotate_B1()
         self.rotate_S()
 
-    def rotate_x(self):
+    def rotate_x_(self):
         self.rotate_r_()
         self.rotate_L1()
 
@@ -348,7 +356,7 @@ class Cube:
         self.rotate_r1_()
         self.rotate_L()
 
-    def rotate_y(self):
+    def rotate_y_(self):
         self.rotate_u_()
         self.rotate_D1()
 
@@ -356,7 +364,7 @@ class Cube:
         self.rotate_u1_()
         self.rotate_D()
 
-    def rotate_z(self):
+    def rotate_z_(self):
         self.rotate_f_()
         self.rotate_B1()
 
@@ -390,15 +398,15 @@ class Cube:
 
     def rotate_x2(self):
         for _ in range(2):
-            self.rotate_x()
+            self.rotate_x_()
             
     def rotate_y2(self):
         for _ in range(2):
-            self.rotate_y()
+            self.rotate_y_()
             
     def rotate_z2(self):
         for _ in range(2):
-            self.rotate_z()
+            self.rotate_z_()
 
     def to_x3dom(self):
         result = ""

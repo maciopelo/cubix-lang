@@ -4,6 +4,7 @@ from antlr4 import *
 from x3domCube import solvedCube
 from customExceptions import *
 from cube import Cube
+import random
 
 
 
@@ -17,7 +18,7 @@ class CubixSecondStageListener(CubixListener):
                   'U', 'U2', 'Up', 'u', 'u2', 'up', 
                   'M', 'E' , 'S',  'x', 'y',  'z']
 
-    COLORS = ['Red', 'Green', 'Blue', 'Yellow', 'White', 'Orange']
+    COLORS = ['red', 'green', 'blue', 'yellow', 'white', 'orange']
 
 
     def __init__(self, output, functionsDeclarations):
@@ -36,7 +37,7 @@ class CubixSecondStageListener(CubixListener):
 
     def exitStart(self, ctx):
         print(f"\nVariables\n{self.variablesDictionaries}")
-        self.cube.set_initial_setting()
+        # self.cube.set_initial_setting()
         self.output.write(self.cube.to_x3dom())
         self.output.write(ending_html)
         self.cubeStatesString = self.cubeStatesString[:-1] + "]"
@@ -71,19 +72,37 @@ class CubixSecondStageListener(CubixListener):
 
             if cubeVarState == '"solved"':
                 self.cube = Cube(None)
-                x =  self.getCubeCurrentState()
 
-                print("inintial cubestate")
-                print(self.cubeStates)
 
-            elif cubeVarState == "mixed":
-                #generate x3dom mixed cube
-                pass
+            elif cubeVarState == '"mixed"':
+                cube = Cube(None)
+                randomArray = []
+
+                for i in range(30):
+                    randomArray.append(random.randint(0,41))
+
+                for i in range(len(randomArray)):
+                    move = self.MOVEVALUES[randomArray[i]]
+                    if move.islower():
+                        move += "_"
+                    move = move.replace("p", "1")
+                    randomArray[i] = move
+
+                for i in range(len(randomArray)):
+                    methodString = "rotate_" + randomArray[i]
+                    method = getattr(Cube, methodString)
+                    method(cube)
+
+                
+                self.cube = cube
+
             
             else:
-                #generate x3dom cube with given sett
-                pass
+                setting = self.variableGet(cubeVarState)
+                self.cube = Cube(setting)
 
+
+            # self.getCubeCurrentState()
             self.assignVariable(cubeVarName, cubeVarState)
 
 
@@ -140,13 +159,21 @@ class CubixSecondStageListener(CubixListener):
                 
 
     def enterSettingInitalization(self, ctx):
+        settingValueDict = {}
         settingName = ctx.VariableName().getText()
-        settingValue = ctx.SettingValue().getText().replace(" ","").replace("\n","")
+        settingValue = ctx.SettingValue().getText().replace(" ","").replace("\r\n","")
+        settingValue = settingValue[1:len(settingValue)-1]
+        settingValue = settingValue.split(";")
+
+        for i in range(len(settingValue)):
+            settingValueDictName, settingValueDictArr = settingValue[i].split("=")
+            settingValueDictArr = settingValueDictArr[1:len(settingValueDictArr)-1].split(",")
+            settingValueDict[settingValueDictName] = settingValueDictArr 
 
         if self.variableExistInLocalScope(settingName):
             raise VariableExistsException(str(settingName))
         else:
-            self.assignVariable(settingName,settingValue)
+            self.assignVariable(settingName,settingValueDict)
             
 
 
@@ -207,12 +234,9 @@ class CubixSecondStageListener(CubixListener):
             "back": self.cube.back_side,
         }
 
-
-        print("getCubeCurrentState")
-        print(state)
         self.cubeStates.append(state)
         self.cubeStatesString += f"{str(state)}," 
-        # return state
+        
 
 
 
@@ -220,9 +244,6 @@ class CubixSecondStageListener(CubixListener):
     def enterAlgorithmExecution(self, ctx):
 
         _input = (ctx.getText()[10:])[1:-1].lstrip().rstrip()
-        print("befoe algo exec")
-        print(self.cubeStates)
-        print("begofe algo exec")
         exec_func = ""
 
         #check if given input is default move value e.g R
@@ -237,34 +258,8 @@ class CubixSecondStageListener(CubixListener):
             exec_func = "rotate_" + exec_func
             method = getattr(Cube, exec_func)
             method(self.cube)
-
-            # print("algorxec2")
-            # print(self.getCubeCurrentState())
-            # print("algorxec2")
-            
-            # print("algorxec3")
-            # print(self.cubeStates)
-            # print("algorxec3")
-
             self.getCubeCurrentState()
-            print("after algo exec cubestate")
-            print(self.cubeStates)
-            print("after algo exec cubestate")
-        #     print()
-        #     print(self.cubeStates)
-        #     print("before")
-        #     print("cubestatebefore")
-        #     print(self.cubeStates)
-        #     print()
-        #     self.cubeStates.append(currState)
-        #     print()
-        #     print(self.cubeStates)
-        #     print("cubestatesafter")
-        #     print()
-        #     print(currState)
-        #     print("move")
-        #     print()
-        #     print(self.cubeStates)
+           
 
 
         #check if given input is move value variable e.g. move1
@@ -309,7 +304,7 @@ class CubixSecondStageListener(CubixListener):
 
 
     def assignVariable(self, name, value):
-        if( not isinstance(value, list) and self.variableExist(value)):
+        if( not isinstance(value, list) and not isinstance(value, dict) and self.variableExist(value)):
             self.variableCreate(name, self.variableGet(value))
         else:
             self.variableCreate(name, value)

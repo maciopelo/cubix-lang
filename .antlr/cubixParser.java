@@ -44,7 +44,7 @@ public class cubixParser extends Parser {
 		return new String[] {
 			null, "'<'", "'>'", null, null, "'Cube'", "'Move'", "'Algo'", "'Num'", 
 			"'Setting'", "'Array'", "'FUNC'", null, null, null, null, null, null, 
-			null, null, "';'", "'.'", "'$'", "'+'", "'='", "':'", "'loop'", "'times'", 
+			null, null, null, "'.'", "'$'", "'+'", "'='", "':'", "'loop'", "'times'", 
 			"'exec'", "'cube'", "'show'", "'\"mixed\"'", "'\"solved\"'", "'in'", 
 			"'using'", "'begin'", "'end'"
 		};

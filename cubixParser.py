@@ -133,8 +133,8 @@ class cubixParser ( Parser ):
                      "'Cube'", "'Move'", "'Algo'", "'Num'", "'Setting'", 
                      "'Array'", "'FUNC'", "<INVALID>", "<INVALID>", "<INVALID>", 
                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                     "<INVALID>", "';'", "'.'", "'$'", "'+'", "'='", "':'", 
-                     "'loop'", "'times'", "'exec'", "'cube'", "'show'", 
+                     "<INVALID>", "<INVALID>", "'.'", "'$'", "'+'", "'='", 
+                     "':'", "'loop'", "'times'", "'exec'", "'cube'", "'show'", 
                      "'\"mixed\"'", "'\"solved\"'", "'in'", "'using'", "'begin'", 
                      "'end'" ]
 
