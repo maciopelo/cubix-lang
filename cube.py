@@ -1,10 +1,22 @@
 from copy import deepcopy
 
 class Cube:
+
+    COLORS = {
+        "red": "'0.96 0.04 0.04'",
+        "green": "'0.16 0.56 0.17'",
+        "blue": "'0.04 0.04 0.96'",
+        "yellow": "'1 1 0'",
+        "white": "'1 1 1'",
+        "orange": "'1 0.35 0'",
+    }
+
+
     def __init__(self, setting, right_center="red", front_center="green", top_center="white"):
         self.right_center = right_center
         self.front_center = front_center
         self.top_center = top_center
+
         #parser
         red=["red","red","red","red","red","red","red","red"]
         green=["green","green","green","green","green","green","green","green"]
@@ -20,6 +32,17 @@ class Cube:
         self.left_side = loc[self._opposite_side(right_center)]
         self.bottom_side = loc[self._opposite_side(top_center)]
         self.back_side = loc[self._opposite_side(front_center)]
+
+    
+    def set_initial_setting(self):
+        self.right_side = ["red","red","red","red","red","red","red","red"]
+        self.top_side = ["white","white","white","white","white","white","white","white"]
+        self.front_side = ["green","green","green","green","green","green","green","green"]
+        self.left_side = ["orange","orange","orange","orange","orange","orange","orange","orange"]
+        self.bottom_side = ["yellow","yellow","yellow","yellow","yellow","yellow","yellow","yellow"]
+        self.back_side = ["blue","blue","blue","blue","blue","blue","blue","blue"] 
+
+        
 
     def _opposite_side(self, center):
         if center == "red":
@@ -465,7 +488,12 @@ class Cube:
                 result += f"""
                 <group DEF="{name}Square{i}">
                     <transform translation='{coords[0]} {coords[1]} {coords[2]}' >
-                        <shape USE='{color}Element'/>
+                        <shape> 
+                            <appearance> 
+                                <material id="{name}Square{i}Color" diffuseColor={self.COLORS[color]}/>
+                            </appearance> 
+                            <box size='0.9, 0.9, 0.9'/>
+                        </shape> 
                     </transform>
                 </group>
             """

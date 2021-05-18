@@ -25,15 +25,38 @@ class CubixSecondStageListener(CubixListener):
         self.output.write(initial_html)
         self.variablesDictionaries = []
         self.functionsDeclarations = functionsDeclarations
+        self.cube = None
+        self.cubeStates = []
+        self.cubeStatesString = "["
 
 
     def enterStart(self, ctx):
         self.variablesDictionaries.append({})
 
-    def exitStart(self, ctx):
-        print(f"\n{self.variablesDictionaries}")
-        self.output.write(ending_html)
 
+    def exitStart(self, ctx):
+        print(f"\nVariables\n{self.variablesDictionaries}")
+        self.cube.set_initial_setting()
+        self.output.write(self.cube.to_x3dom())
+        self.output.write(ending_html)
+        self.cubeStatesString = self.cubeStatesString[:-1] + "]"
+        print(self.cubeStatesString)
+        self.output.write(self.prepareJavascript())
+        self.output.write("</html>")
+
+    
+    def prepareJavascript(self):
+        jsScript = f""" 
+        <script> 
+            const states = {self.cubeStatesString}
+
+        </script>
+        
+        
+        """
+
+        return jsScript
+        
         
     def enterCubeInitialization(self, ctx):
         cubeVarName = ctx.VariableName().getText()
@@ -47,10 +70,12 @@ class CubixSecondStageListener(CubixListener):
             cubeVarState = cubeVarValue[5:len(cubeVarValue)-1]
 
             if cubeVarState == '"solved"':
-                #self.output.write(solvedCube)
-                cube = Cube(None)
-                cube.rotate_U()
-                self.output.write(cube.to_x3dom())
+                self.cube = Cube(None)
+                x =  self.getCubeCurrentState()
+
+                print("inintial cubestate")
+                print(self.cubeStates)
+
             elif cubeVarState == "mixed":
                 #generate x3dom mixed cube
                 pass
@@ -170,11 +195,83 @@ class CubixSecondStageListener(CubixListener):
         else:
             self.assignVariable(numberName, numberValue)
 
+    
+
+    def getCubeCurrentState(self):
+        state = {
+            "right": self.cube.right_side,
+            "top": self.cube.top_side,
+            "front": self.cube.front_side,
+            "left": self.cube.left_side,
+            "bottom": self.cube.bottom_side,
+            "back": self.cube.back_side,
+        }
+
+
+        print("getCubeCurrentState")
+        print(state)
+        self.cubeStates.append(state)
+        self.cubeStatesString += f"{str(state)}," 
+        # return state
+
 
 
 
     def enterAlgorithmExecution(self, ctx):
-        print(f"Execution of algorithm on the cube: {ctx.getText()}") # PLACEMENT
+
+        _input = (ctx.getText()[10:])[1:-1].lstrip().rstrip()
+        print("befoe algo exec")
+        print(self.cubeStates)
+        print("begofe algo exec")
+        exec_func = ""
+
+        #check if given input is default move value e.g R
+        if _input in self.MOVEVALUES:
+
+            exec_func = _input
+
+            if _input.islower():
+                exec_func = _input + "_"
+
+            exec_func = exec_func.replace("p","1")
+            exec_func = "rotate_" + exec_func
+            method = getattr(Cube, exec_func)
+            method(self.cube)
+
+            # print("algorxec2")
+            # print(self.getCubeCurrentState())
+            # print("algorxec2")
+            
+            # print("algorxec3")
+            # print(self.cubeStates)
+            # print("algorxec3")
+
+            self.getCubeCurrentState()
+            print("after algo exec cubestate")
+            print(self.cubeStates)
+            print("after algo exec cubestate")
+        #     print()
+        #     print(self.cubeStates)
+        #     print("before")
+        #     print("cubestatebefore")
+        #     print(self.cubeStates)
+        #     print()
+        #     self.cubeStates.append(currState)
+        #     print()
+        #     print(self.cubeStates)
+        #     print("cubestatesafter")
+        #     print()
+        #     print(currState)
+        #     print("move")
+        #     print()
+        #     print(self.cubeStates)
+
+
+        #check if given input is move value variable e.g. move1
+        #check if given input is default array of moves e.g [R,R,r]
+        #check if given input is algorythm e.g algo1
+
+        print(f"Execution of algorithm on the cube: {_input}") # PLACEMENT
 
 
     def enterShow(self, ctx):
