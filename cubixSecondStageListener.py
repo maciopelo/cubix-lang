@@ -4,6 +4,7 @@ from antlr4 import *
 from x3domCube import solvedCube
 from customExceptions import *
 from cube import Cube
+import random
 
 
 
@@ -17,7 +18,7 @@ class CubixSecondStageListener(CubixListener):
                   'U', 'U2', 'Up', 'u', 'u2', 'up', 
                   'M', 'E' , 'S',  'x', 'y',  'z']
 
-    COLORS = ['Red', 'Green', 'Blue', 'Yellow', 'White', 'Orange']
+    COLORS = ['red', 'green', 'blue', 'yellow', 'white', 'orange']
 
 
     def __init__(self, output, functionsDeclarations):
@@ -47,18 +48,34 @@ class CubixSecondStageListener(CubixListener):
             cubeVarState = cubeVarValue[5:len(cubeVarValue)-1]
 
             if cubeVarState == '"solved"':
-                #self.output.write(solvedCube)
                 cube = Cube(None)
-                cube.rotate_U()
-                self.output.write(cube.to_x3dom())
-            elif cubeVarState == "mixed":
-                #generate x3dom mixed cube
-                pass
+
+            elif cubeVarState == '"mixed"':
+                cube = Cube(None)
+                randomArray = []
+
+                for i in range(30):
+                    randomArray.append(random.randint(0,41))
+
+                for i in range(len(randomArray)):
+                    move = self.MOVEVALUES[randomArray[i]]
+                    if move.islower():
+                        move += "_"
+                    move = move.replace("p", "1")
+                    randomArray[i] = move
+
+                for i in range(len(randomArray)):
+                    methodString = "rotate_" + randomArray[i]
+                    method = getattr(Cube, methodString)
+                    method(cube)
+
             
             else:
-                #generate x3dom cube with given sett
-                pass
+                setting = self.variableGet(cubeVarState)
+                cube = Cube(setting)
 
+
+            self.output.write(cube.to_x3dom())
             self.assignVariable(cubeVarName, cubeVarState)
 
 
@@ -115,13 +132,21 @@ class CubixSecondStageListener(CubixListener):
                 
 
     def enterSettingInitalization(self, ctx):
+        settingValueDict = {}
         settingName = ctx.VariableName().getText()
-        settingValue = ctx.SettingValue().getText().replace(" ","").replace("\n","")
+        settingValue = ctx.SettingValue().getText().replace(" ","").replace("\r\n","")
+        settingValue = settingValue[1:len(settingValue)-1]
+        settingValue = settingValue.split(";")
+
+        for i in range(len(settingValue)):
+            settingValueDictName, settingValueDictArr = settingValue[i].split("=")
+            settingValueDictArr = settingValueDictArr[1:len(settingValueDictArr)-1].split(",")
+            settingValueDict[settingValueDictName] = settingValueDictArr 
 
         if self.variableExist(settingName):
             raise VariableExistsException(str(settingName))
         else:
-            self.assignVariable(settingName,settingValue)
+            self.assignVariable(settingName,settingValueDict)
             
 
 
@@ -211,7 +236,7 @@ class CubixSecondStageListener(CubixListener):
 
 
     def assignVariable(self, name, value):
-        if( not isinstance(value, list) and self.variableExist(value)):
+        if( not isinstance(value, list) and not isinstance(value, dict) and self.variableExist(value)):
             self.variableCreate(name, self.variableGet(value))
         else:
             self.variableCreate(name, value)

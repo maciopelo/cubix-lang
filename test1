@@ -50,11 +50,11 @@ Algo: algorythm1 = [ R, R2, m3, x ];
 
 
 |@ Setting: sett1 = [
-    Red={Red, Red, Red, Red, Red, Red, Red, Red},
-    Green={Green, Green, Green, Green, Green, Green, Green, Green},
-    Blue={Blue, Blue, Blue, Blue, Blue, Blue, Blue, Blue},
-    Yellow={Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow},
-    White={White, White, White, White, White, White, White, White},
+    Red={Red, Red, Red, Red, Red, Red, Red, Red};
+    Green={Green, Green, Green, Green, Green, Green, Green, Green};
+    Blue={Blue, Blue, Blue, Blue, Blue, Blue, Blue, Blue};
+    Yellow={Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow};
+    White={White, White, White, White, White, White, White, White};
     Orange={Orange, Orange, Orange, Orange, Orange, Orange, Orange, Orange}
 ]; @|
 

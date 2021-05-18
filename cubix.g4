@@ -16,12 +16,12 @@ MOVEVALUE:      'R'  | 'R2'   | 'Rp'  | 'r'   | 'r2'  |  'rp' |
 
 
 
-COLOR:  ('Red' Whitespace*)    | 
-        ('Green' Whitespace*)  | 
-        ('Blue' Whitespace*)   | 
-        ('Yellow' Whitespace*) | 
-        ('White' Whitespace*)  | 
-        ('Orange' Whitespace*) ;
+COLOR:  ('red' Whitespace*)    | 
+        ('green' Whitespace*)  | 
+        ('blue' Whitespace*)   | 
+        ('yellow' Whitespace*) | 
+        ('white' Whitespace*)  | 
+        ('orange' Whitespace*) ;
 
 
 
@@ -44,7 +44,7 @@ RightCurlyBracket: '}' (Whitespace | Newline)*;
 
 
 COMMA: ',' (Whitespace | Newline)*;
-SEMICOLON: ';';
+SEMICOLON: ';' (Whitespace | Newline)*;
 DOT: '.';
 DOLLAR: '$';
 PLUS: '+';
@@ -120,7 +120,7 @@ functionDeclaration: FUNC VariableName ( ('<' (VariableName COMMA)* VariableName
 /* ----------------------- */
 
 
-SettingValue: LeftSquareBracket Wall COMMA Wall COMMA Wall COMMA Wall COMMA Wall COMMA Wall RightSquareBracket; 
+SettingValue: LeftSquareBracket Wall SEMICOLON Wall SEMICOLON Wall SEMICOLON Wall SEMICOLON Wall SEMICOLON Wall RightSquareBracket; 
 
 AlgorithmValue: LeftSquareBracket (VariableName COMMA | MOVEVALUE COMMA)* ((VariableName | MOVEVALUE) Whitespace*) RightSquareBracket;
 
