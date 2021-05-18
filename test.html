@@ -1,104 +1,67 @@
 <html>
-<head>
-  <meta http-equiv="Content-Type"/>
-  <title>Rotate Object</title>
-  <link rel="stylesheet" type="text/css" href="http://www.x3dom.org/x3dom/src/x3dom.css"/>
-  <script type="text/javascript" src="http://www.x3dom.org/x3dom/src/x3dom.js"></script>
-</head>
- 
-<body>
-  <X3D width="500px" height="500px">
-  <scene>			
-    <transform DEF='couch'>
-        <Transform translation='0.0 0.0 3.0'>
+  <head>
+    <meta http-equiv="Content-Type" />
+    <title>Rotate Object</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="http://www.x3dom.org/x3dom/src/x3dom.css"
+    />
+    <script
+      type="text/javascript"
+      src="http://www.x3dom.org/x3dom/src/x3dom.js"
+    ></script>
+  </head>
 
-      <Shape DEF='leg'>
-<Appearance>
-<Material diffuseColor='0.2 0.1 0.0'/>
-</Appearance> 
-<Cylinder height='0.5' radius='0.2'/>
-</Shape>
-</Transform> 
-<Transform translation='0.0 0.0 -3.0'>
-<Shape USE='leg'/>
-</Transform> 
-<Transform translation='-2.0 0.0 -3.0'>
-<Shape USE='leg'/>
-</Transform> 
-<Transform translation='-2.0 0.0 3.0'>
-<Shape USE='leg'/>
-</Transform> 
-<Transform rotation='0.0 0.0 1.0 0.1' translation='-1.0 0.3 0.0'>
-<Shape>
-<Appearance>
-<Material diffuseColor='0.1 0.2 0.5'/>
-</Appearance> 
-<Box size='2.5 0.5 7.0'/>
-</Shape>
-</Transform> 
-<Transform rotation='0.0 0.0 1.0 0.1' translation='-1.0 0.5 3.5'>
-<Group DEF='arm'>
-<Shape>
-<Appearance>
-<Material diffuseColor='0.1 0.2 0.5'/>
-</Appearance> 
-<Box size='2.5 0.3 0.3'/>
-</Shape> 
-<Transform rotation='0.0 0.0 1.0 -1.5' translation='0.0 0.2 0.0'>
-<Shape>
-<Appearance>
-<Material diffuseColor='0.1 0.2 0.5'/>
-</Appearance> 
-<Cylinder height='3.0' radius='0.2'/>
-</Shape>
-</Transform>
-</Group>
-</Transform> 
-<Transform rotation='0.0 0.0 1.0 -1.4' translation='-1.0 0.7 3.5'>
-<Shape DEF='woodarm'>
-<Appearance>
-<Material diffuseColor='0.2 0.1 0.0'/>
-</Appearance> 
-<Cylinder height='3.2' radius='0.1'/>
-</Shape>
-</Transform> 
-<Transform rotation='0.0 0.0 1.0 -1.4' translation='-1.0 0.7 -3.5'>
-<Shape USE='woodarm'/>
-</Transform> 
-<Transform rotation='0.0 0.0 1.0 0.1' translation='-1.0 0.5 -3.5'>
-<Group USE='arm'/>
-</Transform> 
-<Transform rotation='0.0 0.0 1.0 0.4' translation='-2.2 0.8 0.0'>
-<Shape>
-<Appearance>
-<Material diffuseColor='0.1 0.2 0.5'/>
-</Appearance> 
-<Box size='0.3 1.5 6.5'/>
-</Shape>
-</Transform> 
-<Transform rotation='0.0 0.0 1.0 0.1' translation='-1.0 0.4 0.0'>
-<Shape>
-<Appearance>
-<Material diffuseColor='0.1 0.2 0.5'/>
-</Appearance> 
-<Box size='2.5 0.5 6.5'/>
-</Shape> 
-<Transform rotation='1.0 0.0 0.0 1.5707964' translation='1.15 0.0 0.0'>
-<Shape>
-<Appearance>
-<Material diffuseColor='0.1 0.2 0.5'/>
-</Appearance> 
-<Cylinder height='6.5' radius='0.25'/>
-</Shape>
-</Transform>
-</Transform>
- 
-    <timeSensor DEF='clock' cycleInterval='10' loop='false' ></timeSensor>
-    <orientationInterpolator DEF='spinThings' key='0 0.25 0.5 0.75 1' keyValue='0 1 0 0  0 1 0 1.57079  0 1 0 3.14159  0 1 0 4.71239  0 1 0 6.28317'></orientationInterpolator>
- 
-    <ROUTE fromNode='clock' fromField='fraction_changed' toNode='spinThings' toField='set_fraction'></ROUTE>
-    <ROUTE fromNode='spinThings' fromField='value_changed' toNode='couch' toField='set_rotation'></ROUTE>
-  </scene>
-  </X3D>
-</body>
+  <body>
+    <button>click1</button>
+    <button>click2</button>
+  </body>
+
+  <script> 
+      const COLORS = {
+          "red": "0.96 0.04 0.04",
+          "green": "0.16 0.56 0.17",
+          "blue": "0.04 0.04 0.96",
+          "yellow": "1 1 0",
+          "white": "1 1 1",
+          "orange": "1 0.35 0",
+      }
+      const states = [{'right': ['red', 'red', 'red', 'red', 'red', 'red', 'red', 'red'], 'top': ['white', 'white', 'white', 'white', 'white', 'white', 'white', 'white'], 'front': ['green', 'green', 'green', 'green', 'green', 'green', 'green', 'green'], 'left': ['orange', 'orange', 'orange', 'orange', 'orange', 'orange', 'orange', 'orange'], 'bottom': ['yellow', 'yellow', 'yellow', 'yellow', 'yellow', 'yellow', 'yellow', 'yellow'], 'back': ['blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue']},{'right': ['red', 'red', 'red', 'red', 'red', 'red', 'red', 'red'], 'top': ['white', 'white', 'green', 'white', 'green', 'white', 'white', 'green'], 'front': ['green', 'green', 'yellow', 'green', 'yellow', 'green', 'green', 'yellow'], 'left': ['orange', 'orange', 'orange', 'orange', 'orange', 'orange', 'orange', 'orange'], 'bottom': ['yellow', 'yellow', 'blue', 'yellow', 'blue', 'yellow', 'yellow', 'blue'], 'back': ['blue', 'blue', 'white', 'blue', 'white', 'blue', 'blue', 'white']}]
+      let currentMove = 0
+      const prevMoveBtn = document.querySelector("#prevMoveBtn")
+      const nextMoveBtn = document.querySelector("#nextMoveBtn")
+
+      nextMoveBtn.onclick = function() {
+          if(currentMove !== states.length-1){
+              currentMove += 1;
+              const nextMoveSetting = states[currentMove];
+              handleCubeColorsChange(nextMoveSetting);
+          }
+      }
+
+      prevMoveBtn.onclick = function() {
+          if(currentMove !== 0){
+              currentMove -= 1;
+              const nextMoveSetting = states[currentMove];
+              handleCubeColorsChange(nextMoveSetting);
+          }
+      }
+
+      
+
+      function handleCubeColorsChange(givenState){
+          for (const side in givenState) {
+              if (Object.hasOwnProperty.call(givenState, side)) {
+                  const sideColors = givenState[side];
+                  sideColors.forEach( (color, index) => {
+                      const cubeSquareToChange = document.querySelector(`#${side}Square${index}Color`)
+                      cubeSquareToChange.setAttribute("diffuseColor",COLORS[color])
+                  })
+              }
+          }
+
+      }
+
+  </script>
 </html>

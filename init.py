@@ -81,7 +81,7 @@ colors_initialization = """
 
 ending_html = """
             </scene>
+            <button id="prevMoveBtn">Prev</button>
+            <button id="nextMoveBtn">Next</button>
         </body>
-</html>
-
 """

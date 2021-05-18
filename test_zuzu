@@ -1,1 +1,5 @@
 Cube: cube1 = cube("solved");
+cube1.exec(R);
+cube1.exec(U);
+cube1.exec(Rp);
+cube1.exec(Up);
