@@ -1,1 +1,12 @@
-Cube: cube1 = cube("solved");
+Setting: sett1 = [
+
+    red={red,red,   red,red,red,red,red,red};
+    green={green,  green,green,green,green,green,green,green};
+    blue={blue,   blue,  blue,blue,blue,blue,blue,blue};
+    
+    yellow={yellow,yellow,yellow,yellow,yellow,yellow,yellow,yellow};
+    white={white,white,white,white,white,white,white,white};
+    orange={orange,orange,orange,orange,orange,orange,orange,orange}
+    ];
+
+Cube: cube1 = cube(sett1);
