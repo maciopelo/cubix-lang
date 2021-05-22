@@ -1,5 +1,5 @@
 from cubixListener import cubixListener as CubixListener
-from init import initial_html, ending_html, colors_initialization
+from init import initial_html, ending_html, colors_initialization, js_script
 from antlr4 import *
 from x3domCube import solvedCube
 from customExceptions import *
@@ -27,7 +27,7 @@ class CubixSecondStageListener(CubixListener):
         self.variablesDictionaries = []
         self.functionsDeclarations = functionsDeclarations
         self.cube = None
-        self.cubeStates = []
+        self.cubeMovesString= "["
         self.cubeStatesString = "["
 
 
@@ -36,26 +36,27 @@ class CubixSecondStageListener(CubixListener):
 
 
     def exitStart(self, ctx):
-        print(f"\nVariables\n{self.variablesDictionaries}")
-        # self.cube.set_initial_setting()
+        if self.cube.setting != "mixed":
+            self.cube.setInitialSetting()
         self.output.write(self.cube.to_x3dom())
         self.output.write(ending_html)
-        self.cubeStatesString = self.cubeStatesString[:-1] + "]"
-        print(self.cubeStatesString)
+        if len(self.cubeMovesString) == 1:
+            self.cubeMovesString = self.cubeMovesString + "];"
+        else:
+            self.cubeMovesString = self.cubeMovesString[:-1] + "];"
+        self.cubeStatesString = self.cubeStatesString[:-1] + "];"
         self.output.write(self.prepareJavascript())
-        self.output.write("</html>")
 
     
     def prepareJavascript(self):
         jsScript = f""" 
-        <script> 
-            const states = {self.cubeStatesString}
-
-        </script>
-        
-        
+            <script> 
+                const states = {self.cubeStatesString}
+                const moves = {self.cubeMovesString}
+                {js_script}
+            </script>
+        </html>
         """
-
         return jsScript
         
         
@@ -75,7 +76,7 @@ class CubixSecondStageListener(CubixListener):
 
 
             elif cubeVarState == '"mixed"':
-                cube = Cube(None)
+                cube = Cube("mixed")
                 randomArray = []
 
                 for i in range(30):
@@ -102,7 +103,7 @@ class CubixSecondStageListener(CubixListener):
                 self.cube = Cube(setting)
 
 
-            # self.getCubeCurrentState()
+            self.appendCurrentCubeState()
             self.assignVariable(cubeVarName, cubeVarState)
 
 
@@ -161,12 +162,15 @@ class CubixSecondStageListener(CubixListener):
     def enterSettingInitalization(self, ctx):
         settingValueDict = {}
         settingName = ctx.VariableName().getText()
-        settingValue = ctx.SettingValue().getText().replace(" ","").replace("\r\n","")
+        settingValue = ctx.SettingValue().getText().replace(" ","").replace("\n","").replace("\r","")
         settingValue = settingValue[1:len(settingValue)-1]
+        
         settingValue = settingValue.split(";")
+        
 
         for i in range(len(settingValue)):
             settingValueDictName, settingValueDictArr = settingValue[i].split("=")
+            settingValueDictName = settingValueDictName.lstrip().rstrip()
             settingValueDictArr = settingValueDictArr[1:len(settingValueDictArr)-1].split(",")
             settingValueDict[settingValueDictName] = settingValueDictArr 
 
@@ -224,7 +228,7 @@ class CubixSecondStageListener(CubixListener):
 
     
 
-    def getCubeCurrentState(self):
+    def appendCurrentCubeState(self):
         state = {
             "right": self.cube.right_side,
             "top": self.cube.top_side,
@@ -233,40 +237,64 @@ class CubixSecondStageListener(CubixListener):
             "bottom": self.cube.bottom_side,
             "back": self.cube.back_side,
         }
-
-        self.cubeStates.append(state)
         self.cubeStatesString += f"{str(state)}," 
         
 
 
-
-
     def enterAlgorithmExecution(self, ctx):
 
-        _input = (ctx.getText()[10:])[1:-1].lstrip().rstrip()
+
+        if isinstance(ctx,str):
+            ctx = ctx.replace("\n","").replace("\t","").lstrip().rstrip()
+        else:
+            ctx = ctx.getText().replace("\n","").replace("\t","").lstrip().rstrip()
+
+
+        _input = (ctx[10:])[1:-1].lstrip().rstrip()
+        #print(_input)
+        #check if given input is move value variable e.g. move1
+        if self.variableGet(_input) is not None:
+
+            _input = self.variableGet(_input)
+
+            #check if given input is algorythm e.g algo1
+            if isinstance(_input,list):
+                for move in _input:
+
+                    if self.variableGet(move) is not None:
+                        move = self.variableGet(move)
+                        self.executeSingleMove(move)
+                    else:
+                        self.executeSingleMove(move)
+            else:
+                self.executeSingleMove(_input)
+
+        else:
+            self.executeSingleMove(_input)
+        
+
+
+    def executeSingleMove(self, move):
+        print(move)
+        
         exec_func = ""
-
+       
         #check if given input is default move value e.g R
-        if _input in self.MOVEVALUES:
+        if move in self.MOVEVALUES:
+            
+            self.cubeMovesString += f"'{move}',"
 
-            exec_func = _input
+            exec_func = move
 
-            if _input.islower():
-                exec_func = _input + "_"
+            if move.islower():
+                exec_func = move + "_"
 
             exec_func = exec_func.replace("p","1")
             exec_func = "rotate_" + exec_func
             method = getattr(Cube, exec_func)
             method(self.cube)
-            self.getCubeCurrentState()
-           
+            self.appendCurrentCubeState()
 
-
-        #check if given input is move value variable e.g. move1
-        #check if given input is default array of moves e.g [R,R,r]
-        #check if given input is algorythm e.g algo1
-
-        print(f"Execution of algorithm on the cube: {_input}") # PLACEMENT
 
 
     def enterShow(self, ctx):
@@ -290,7 +318,27 @@ class CubixSecondStageListener(CubixListener):
             raise FunctionNotExistsException(funcName)
         else:
             print(f"Function {funcName} has been executed") # PLACEMENT
+    
 
+    def exitIterationForI(self, ctx):
+
+        timesKeyword = ctx.getText().find('times')
+        numOfIterations = ctx.getText()[4:timesKeyword]
+
+        if self.variableGet(numOfIterations) is not None:
+            numOfIterations = self.variableGet(numOfIterations)
+        
+        bodyOfLoop = ctx.getText()[timesKeyword+len("times")+1:].replace("\n","").replace("\t","").replace(" ","")[:-1].split("+")
+
+        # only cube.exec(...) hanled 
+        for i in range(int(numOfIterations)-1):
+            for instruction in bodyOfLoop:
+                self.enterAlgorithmExecution(instruction)
+
+
+
+    def exitIterationForEach(self, ctx):
+        print(ctx.getText())
 
 
     def enterLoop(self, ctx):

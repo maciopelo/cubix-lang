@@ -1,17 +1,48 @@
-Cube: cube1 = cube("mixed");
-|@ cube1.exec(R);
-cube1.exec(U);
-cube1.exec(Rp);
-cube1.exec(Up); @|
-
 Setting: sett1 = [
 
-    red={red,red,   red,red,red,red,red,red};
+    red={red,yellow,red,yellow,yellow,red,yellow,red};
     green={green,  green,green,green,green,green,green,green};
     blue={blue,   blue,  blue,blue,blue,blue,blue,blue};
     
     yellow={yellow,yellow,yellow,yellow,yellow,yellow,yellow,yellow};
     white={white,white,white,white,white,white,white,white};
-    orange={orange,orange,orange,orange,orange,orange,orange,orange}
+    orange={orange,orange,orange,orange,orange,orange,orange,orange }
     ];
+
+
+Cube: cube1 = cube("solved");
+||Cube: cube1 = cube(sett1);
+|| Cube: cube1 = cube("mixed");
+
+
+|@
+Move: m1 = U;
+Algo: algorythm1 = [R, R, m1, Rp];
+
+cube1.exec(algorythm1);
+
+cube1.exec(R);
+cube1.exec(m1);
+cube1.exec(Rp);
+cube1.exec(Up); @|
+
+
+
+
+Algo: algo1 = [R, U, Rp, Up];
+
+
+Num: num_of_repeats = 6;
+
+loop num_of_repeats times {
+    cube1.exec(algo1)
+
+    
+    |@ cube1.exec(R) +
+    cube1.exec(U) +
+    cube1.exec(Rp) +
+    cube1.exec(Up) @|
+    
+};
+
 

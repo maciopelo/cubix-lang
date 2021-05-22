@@ -16,9 +16,10 @@ class Cube:
         self.right_center = right_center
         self.front_center = front_center
         self.top_center = top_center
+        self.setting = setting
 
         #parser
-        if setting is None:
+        if self.setting is None or self.setting == "mixed":
             red=["red","red","red","red","red","red","red","red"]
             green=["green","green","green","green","green","green","green","green"]
             blue= ["blue","blue","blue","blue","blue","blue","blue","blue"]        
@@ -32,6 +33,8 @@ class Cube:
             yellow = setting["yellow"]
             white = setting["white"]
             orange = setting["orange"]
+            self.initialSetting = [deepcopy(red), deepcopy(white), deepcopy(green),  deepcopy(orange), deepcopy(yellow), deepcopy(blue)]
+            
 
         loc = locals()
         self.right_side = loc[right_center]
@@ -42,13 +45,21 @@ class Cube:
         self.back_side = loc[self._opposite_side(front_center)]
 
     
-    def set_initial_setting(self):
-        self.right_side = ["red","red","red","red","red","red","red","red"]
-        self.top_side = ["white","white","white","white","white","white","white","white"]
-        self.front_side = ["green","green","green","green","green","green","green","green"]
-        self.left_side = ["orange","orange","orange","orange","orange","orange","orange","orange"]
-        self.bottom_side = ["yellow","yellow","yellow","yellow","yellow","yellow","yellow","yellow"]
-        self.back_side = ["blue","blue","blue","blue","blue","blue","blue","blue"] 
+    def setInitialSetting(self):
+        if self.setting is None or self.setting == "mixed":
+            self.right_side = ["red","red","red","red","red","red","red","red"]
+            self.top_side = ["white","white","white","white","white","white","white","white"]
+            self.front_side = ["green","green","green","green","green","green","green","green"]
+            self.left_side = ["orange","orange","orange","orange","orange","orange","orange","orange"]
+            self.bottom_side = ["yellow","yellow","yellow","yellow","yellow","yellow","yellow","yellow"]
+            self.back_side = ["blue","blue","blue","blue","blue","blue","blue","blue"] 
+        else:
+            self.right_side = self.initialSetting[0]
+            self.top_side = self.initialSetting[1]
+            self.front_side = self.initialSetting[2]
+            self.left_side = self.initialSetting[3]
+            self.bottom_side = self.initialSetting[4]
+            self.back_side = self.initialSetting[5]
 
         
 
