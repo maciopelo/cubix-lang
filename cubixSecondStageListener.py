@@ -70,16 +70,55 @@ class CubixSecondStageListener(CubixListener):
         else:
             self.output.write(colors_initialization)
             cubeVarState = cubeVarValue[5:len(cubeVarValue)-1]
+            if cubeVarState.find(",") == -1:
+                if cubeVarState == '"solved"':
+                    self.cube = Cube(None)
 
-            if cubeVarState == '"solved"':
-                self.cube = Cube(None)
+                elif cubeVarState == '"mixed"':
+                    cube = Cube("mixed")
+                    randomArray = []
+
+                    for i in range(30):
+                        randomArray.append(random.randint(0,41))
+
+                    for i in range(len(randomArray)):
+                        move = self.MOVEVALUES[randomArray[i]]
+                        if move.islower():
+                            move += "_"
+                        move = move.replace("p", "1")
+                        randomArray[i] = move
+
+                    for i in range(len(randomArray)):
+                        methodString = "rotate_" + randomArray[i]
+                        method = getattr(Cube, methodString)
+                        method(cube)
+
+                    
+                    self.cube = cube
+            
+                else:
+                    setting = self.variableGet(cubeVarState)
+                    self.cube = Cube(setting)
+
+            else: 
+                numberOfMoves = cubeVarState[8:len(cubeVarValue)].strip()
+                if numberOfMoves.isnumeric():
+                    numberOfMoves = int(cubeVarState[8:len(cubeVarValue)].strip())
+
+                elif self.variableExist(numberOfMoves):
+                    if self.variableGet(numberOfMoves).isnumeric():
+                        numberOfMoves = int(self.variableGet(numberOfMoves))
+                    else:
+                        raise InvalidVariableValueException()
+                
+                else:
+                    raise VariableNotExistsException(numberOfMoves)
 
 
-            elif cubeVarState == '"mixed"':
                 cube = Cube("mixed")
                 randomArray = []
 
-                for i in range(30):
+                for i in range(numberOfMoves):
                     randomArray.append(random.randint(0,41))
 
                 for i in range(len(randomArray)):
@@ -97,10 +136,6 @@ class CubixSecondStageListener(CubixListener):
                 
                 self.cube = cube
 
-            
-            else:
-                setting = self.variableGet(cubeVarState)
-                self.cube = Cube(setting)
 
 
             self.appendCurrentCubeState()
@@ -124,7 +159,7 @@ class CubixSecondStageListener(CubixListener):
     def enterAlgorithmInitalization(self, ctx):
         
         algorithmName = ctx.VariableName().getText()
-        algorithmValue = ctx.AlgorithmValue().getText().replace(" ","")[1:-1].split(",")
+        algorithmValue = ctx.AAValue().getText().replace(" ","")[1:-1].split(",")
 
         tmpArr = []
 
@@ -184,7 +219,7 @@ class CubixSecondStageListener(CubixListener):
     def enterArrayInitalization(self, ctx):
         arrName = ctx.VariableName().getText()
         arrType = ctx.Type().getText()[1:]
-        arrValue = ctx.ArrayValue().getText().replace(" ","")[1:-1].split(",")
+        arrValue = ctx.AAValue().getText().replace(" ","")[1:-1].split(",")
 
         tmpArr = []
 
@@ -207,10 +242,26 @@ class CubixSecondStageListener(CubixListener):
 
                     else:
                         raise VariableNotExistsException(item)
-        
-                    
-            elif(arrType == 'Move'):
-                pass
+
+            elif(arrType == 'Algo'):
+                for item in arrValue:
+                    if self.variableExist(item):
+
+                        foundVarNameVal = self.variableGet(item)
+                        if isinstance(foundVarNameVal,list): 
+                            if self.variableExist(foundVarNameVal[0]):
+                                if not self.variableGet(foundVarNameVal[0]).isnumeric():
+                                    tmpArr.append(foundVarNameVal)
+                            else: 
+                                if not foundVarNameVal[0].isnumeric():
+                                    tmpArr.append(foundVarNameVal)
+                                    
+                        else:
+                            raise InvalidVariableValueException()
+
+                    else:
+                        raise VariableNotExistsException(item)
+        print(tmpArr)
         
         self.assignVariable(arrName,tmpArr)
             

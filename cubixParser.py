@@ -11,7 +11,7 @@ else:
 
 def serializedATN():
     with StringIO() as buf:
-        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\62")
+        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\61")
         buf.write("\u00f1\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
         buf.write("\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r\4\16")
         buf.write("\t\16\4\17\t\17\4\20\t\20\4\21\t\21\3\2\3\2\3\2\6\2&\n")
@@ -103,15 +103,15 @@ def serializedATN():
         buf.write("\2\u00cc\u00cd\t\2\2\2\u00cd\35\3\2\2\2\u00ce\u00cf\7")
         buf.write("\f\2\2\u00cf\u00d0\7\17\2\2\u00d0\u00d1\7\16\2\2\u00d1")
         buf.write("\u00d2\7\20\2\2\u00d2\u00d3\7\33\2\2\u00d3\u00d4\7+\2")
-        buf.write("\2\u00d4\u00d5\7\32\2\2\u00d5\u00d6\7\61\2\2\u00d6\37")
-        buf.write("\3\2\2\2\u00d7\u00d8\7\r\2\2\u00d8\u00e5\7+\2\2\u00d9")
-        buf.write("\u00de\7\3\2\2\u00da\u00db\7+\2\2\u00db\u00dd\7\25\2\2")
-        buf.write("\u00dc\u00da\3\2\2\2\u00dd\u00e0\3\2\2\2\u00de\u00dc\3")
-        buf.write("\2\2\2\u00de\u00df\3\2\2\2\u00df\u00e1\3\2\2\2\u00e0\u00de")
-        buf.write("\3\2\2\2\u00e1\u00e2\7+\2\2\u00e2\u00e6\7\4\2\2\u00e3")
-        buf.write("\u00e4\7\3\2\2\u00e4\u00e6\7\4\2\2\u00e5\u00d9\3\2\2\2")
-        buf.write("\u00e5\u00e3\3\2\2\2\u00e6\u00e7\3\2\2\2\u00e7\u00ea\7")
-        buf.write("%\2\2\u00e8\u00eb\5\4\3\2\u00e9\u00eb\5\22\n\2\u00ea\u00e8")
+        buf.write("\2\u00d4\u00d5\7\32\2\2\u00d5\u00d6\7/\2\2\u00d6\37\3")
+        buf.write("\2\2\2\u00d7\u00d8\7\r\2\2\u00d8\u00e5\7+\2\2\u00d9\u00de")
+        buf.write("\7\3\2\2\u00da\u00db\7+\2\2\u00db\u00dd\7\25\2\2\u00dc")
+        buf.write("\u00da\3\2\2\2\u00dd\u00e0\3\2\2\2\u00de\u00dc\3\2\2\2")
+        buf.write("\u00de\u00df\3\2\2\2\u00df\u00e1\3\2\2\2\u00e0\u00de\3")
+        buf.write("\2\2\2\u00e1\u00e2\7+\2\2\u00e2\u00e6\7\4\2\2\u00e3\u00e4")
+        buf.write("\7\3\2\2\u00e4\u00e6\7\4\2\2\u00e5\u00d9\3\2\2\2\u00e5")
+        buf.write("\u00e3\3\2\2\2\u00e6\u00e7\3\2\2\2\u00e7\u00ea\7%\2\2")
+        buf.write("\u00e8\u00eb\5\4\3\2\u00e9\u00eb\5\22\n\2\u00ea\u00e8")
         buf.write("\3\2\2\2\u00ea\u00e9\3\2\2\2\u00eb\u00ec\3\2\2\2\u00ec")
         buf.write("\u00ea\3\2\2\2\u00ec\u00ed\3\2\2\2\u00ed\u00ee\3\2\2\2")
         buf.write("\u00ee\u00ef\7&\2\2\u00ef!\3\2\2\2\25%\'.8CN]im\u0081")
@@ -147,8 +147,8 @@ class cubixParser ( Parser ):
                       "EXEC", "CUBECONSTRUCTOR", "SHOW", "MIXED", "SOLVED", 
                       "IN", "USING", "BEGIN", "END", "Whitespace", "Newline", 
                       "BlockComment", "LineComment", "VariableName", "NONDIGIT", 
-                      "NUMBER", "SettingValue", "AlgorithmValue", "CubeValue", 
-                      "ArrayValue", "Wall" ]
+                      "NUMBER", "SettingValue", "AAValue", "CubeValue", 
+                      "Wall" ]
 
     RULE_start = 0
     RULE_statement = 1
@@ -218,10 +218,9 @@ class cubixParser ( Parser ):
     NONDIGIT=42
     NUMBER=43
     SettingValue=44
-    AlgorithmValue=45
+    AAValue=45
     CubeValue=46
-    ArrayValue=47
-    Wall=48
+    Wall=47
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -1375,8 +1374,8 @@ class cubixParser ( Parser ):
         def ASSIGN(self):
             return self.getToken(cubixParser.ASSIGN, 0)
 
-        def AlgorithmValue(self):
-            return self.getToken(cubixParser.AlgorithmValue, 0)
+        def AAValue(self):
+            return self.getToken(cubixParser.AAValue, 0)
 
         def getRuleIndex(self):
             return cubixParser.RULE_algorithmInitalization
@@ -1407,7 +1406,7 @@ class cubixParser ( Parser ):
             self.state = 183
             self.match(cubixParser.ASSIGN)
             self.state = 184
-            self.match(cubixParser.AlgorithmValue)
+            self.match(cubixParser.AAValue)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1646,8 +1645,8 @@ class cubixParser ( Parser ):
         def ASSIGN(self):
             return self.getToken(cubixParser.ASSIGN, 0)
 
-        def ArrayValue(self):
-            return self.getToken(cubixParser.ArrayValue, 0)
+        def AAValue(self):
+            return self.getToken(cubixParser.AAValue, 0)
 
         def getRuleIndex(self):
             return cubixParser.RULE_arrayInitalization
@@ -1684,7 +1683,7 @@ class cubixParser ( Parser ):
             self.state = 210
             self.match(cubixParser.ASSIGN)
             self.state = 211
-            self.match(cubixParser.ArrayValue)
+            self.match(cubixParser.AAValue)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
