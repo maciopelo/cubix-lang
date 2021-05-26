@@ -9,10 +9,21 @@ Setting: sett1 = [
     orange={orange,orange,orange,orange,orange,orange,orange,orange }
     ];
 
+Num: num1 = 6;
 
 Cube: cube1 = cube("solved");
+||Cube: cube1 = cube("mixed", num1);
 ||Cube: cube1 = cube(sett1);
 || Cube: cube1 = cube("mixed");
+
+
+Move: move1 = L;
+Algo: algos1 = [R, R2, move1];
+Algo: algos2 = [L, D, move1];
+
+Array($Num): arr1 = [1,2,3,num1];
+
+Array($Algo): arr2 = [algos1,algos2];
 
 
 |@

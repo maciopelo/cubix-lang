@@ -32,7 +32,7 @@ NUM: 'Num';
 SETTING: 'Setting';
 ARRAY: 'Array';
 FUNC: 'FUNC';
-Type: DOLLAR (CUBE | MOVE | ALGO | NUM | SETTING);
+Type: DOLLAR ( ALGO | NUM );
 
 
 LeftRoundBracket: '(' (Whitespace | Newline)*;
@@ -103,7 +103,7 @@ expression: (cubeInitialization | algorithmInitalization | numberInitalization |
 
 cubeInitialization: CUBE COLON VariableName ASSIGN CubeValue;
 
-algorithmInitalization: ALGO COLON VariableName ASSIGN AlgorithmValue;
+algorithmInitalization: ALGO COLON VariableName ASSIGN AAValue;
 
 numberInitalization: NUM COLON VariableName ASSIGN (NUMBER | VariableName);
 
@@ -111,7 +111,7 @@ settingInitalization: SETTING COLON VariableName ASSIGN SettingValue;
 
 moveInitalization: MOVE COLON VariableName ASSIGN (MOVEVALUE | VariableName);
 
-arrayInitalization: ARRAY LeftRoundBracket Type RightRoundBracket COLON VariableName ASSIGN ArrayValue;
+arrayInitalization: ARRAY LeftRoundBracket Type RightRoundBracket COLON VariableName ASSIGN AAValue;
 
 functionDeclaration: FUNC VariableName ( ('<' (VariableName COMMA)* VariableName '>') | ('<' '>') ) BEGIN (statement | expression)+ END;
 
@@ -122,11 +122,13 @@ functionDeclaration: FUNC VariableName ( ('<' (VariableName COMMA)* VariableName
 
 SettingValue: LeftSquareBracket Wall SEMICOLON Wall SEMICOLON Wall SEMICOLON Wall SEMICOLON Wall SEMICOLON Wall RightSquareBracket; 
 
-AlgorithmValue: LeftSquareBracket (VariableName COMMA | MOVEVALUE COMMA)* ((VariableName | MOVEVALUE) Whitespace*) RightSquareBracket;
+// AlgorithmValue: LeftSquareBracket (VariableName COMMA | MOVEVALUE COMMA)* ((VariableName | MOVEVALUE) Whitespace*) RightSquareBracket;
 
-CubeValue: CUBECONSTRUCTOR LeftRoundBracket ( MIXED | SOLVED | VariableName ) RightRoundBracket;
+// ArrayValue: LeftSquareBracket (VariableName COMMA | NUMBER COMMA)* (VariableName | NUMBER) RightSquareBracket;
 
-ArrayValue: LeftSquareBracket (VariableName COMMA | NUMBER COMMA)* (VariableName | NUMBER) RightSquareBracket;
+AAValue: LeftSquareBracket (VariableName COMMA | NUMBER COMMA | MOVEVALUE COMMA)* ((VariableName | NUMBER | MOVEVALUE)Whitespace*) RightSquareBracket;
+
+CubeValue: CUBECONSTRUCTOR LeftRoundBracket ( MIXED | (MIXED COMMA (NUMBER | VariableName)) | SOLVED | VariableName ) RightRoundBracket;
 
 Wall: COLOR ASSIGN LeftCurlyBracket COLOR COMMA COLOR COMMA COLOR COMMA COLOR COMMA COLOR COMMA COLOR COMMA COLOR COMMA COLOR RightCurlyBracket;
 
