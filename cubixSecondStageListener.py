@@ -40,10 +40,12 @@ class CubixSecondStageListener(CubixListener):
             self.cube.setInitialSetting()
         self.output.write(self.cube.to_x3dom())
         self.output.write(ending_html)
+
         if len(self.cubeMovesString) == 1:
             self.cubeMovesString = self.cubeMovesString + "];"
         else:
             self.cubeMovesString = self.cubeMovesString[:-1] + "];"
+
         self.cubeStatesString = self.cubeStatesString[:-1] + "];"
         self.output.write(self.prepareJavascript())
 
@@ -115,7 +117,7 @@ class CubixSecondStageListener(CubixListener):
                     raise VariableNotExistsException(numberOfMoves)
 
 
-                cube = Cube("mixed")
+                self.cube = Cube("mixed")
                 randomArray = []
 
                 for i in range(numberOfMoves):
@@ -131,10 +133,10 @@ class CubixSecondStageListener(CubixListener):
                 for i in range(len(randomArray)):
                     methodString = "rotate_" + randomArray[i]
                     method = getattr(Cube, methodString)
-                    method(cube)
+                    method(self.cube)
 
                 
-                self.cube = cube
+                #self.cube = cube
 
 
 
@@ -293,47 +295,83 @@ class CubixSecondStageListener(CubixListener):
 
 
     def enterAlgorithmExecution(self, ctx):
+        never = False
+        afterAll = False
 
-
-        if isinstance(ctx,str):
-            ctx = ctx.replace("\n","").replace("\t","").lstrip().rstrip()
+        if isinstance(ctx, str):
+            if ctx.find(",") == -1:
+                ctx = ctx.replace("\n","").replace("\t","").strip()
+                _inputString = (ctx[12:])[1:-1].strip()
+            else:
+                _inputString = ctx[12:].strip()
+                _inputString = _inputString[1:-1].strip()
+                _inputString, keyword = _inputString.split(",")
+                _inputString = _inputString.strip()
+                keyword = keyword.strip()
+                if keyword == "never":
+                    never = True
+                elif keyword == "after_all":
+                    afterAll = True
         else:
-            ctx = ctx.getText().replace("\n","").replace("\t","").lstrip().rstrip()
+            if ctx.COMMA() is not None:
+                if ctx.NEVER() is not None:
+                    never = True
+                if ctx.AFTERALL() is not None:
+                    afterAll = True
 
+            if ctx.MOVEVALUE() is not None:
+                _inputString = ctx.MOVEVALUE().getText()
+            else:
+                _inputString = ctx.VariableName(1).getText()
 
-        _input = (ctx[10:])[1:-1].lstrip().rstrip()
-        #print(_input)
+        if isinstance(ctx, str):
+            cubeName = ctx[1:ctx.find(".")].replace("\n","").replace("\t","").replace("\r","").replace(" ","")
+        else:
+            cubeName = ctx.VariableName(0).getText()
+        if self.variableGet(cubeName) is None:
+            raise VariableNotExistsException(cubeName)
+
         #check if given input is move value variable e.g. move1
-        if self.variableGet(_input) is not None:
+        if self.variableGet(_inputString) is not None:
 
-            _input = self.variableGet(_input)
+            _input = self.variableGet(_inputString)
 
             #check if given input is algorythm e.g algo1
             if isinstance(_input,list):
+                tmpBool = False
+                if never or afterAll:
+                    tmpBool = True
                 for move in _input:
 
                     if self.variableGet(move) is not None:
                         move = self.variableGet(move)
-                        self.executeSingleMove(move)
+                        self.executeSingleMove(move, tmpBool)
                     else:
-                        self.executeSingleMove(move)
+                        self.executeSingleMove(move, tmpBool)
+
+                if afterAll:
+                    self.cubeMovesString += f"'{_inputString}',"
+                    self.appendCurrentCubeState()
             else:
-                self.executeSingleMove(_input)
+                if afterAll:
+                    raise BadKeywordUsageException(str(ctx.AFTERALL().getText()))
+                self.executeSingleMove(_input, never)
 
         else:
-            self.executeSingleMove(_input)
+            if afterAll:
+                raise BadKeywordUsageException(str(ctx.AFTERALL().getText()))
+            self.executeSingleMove(_inputString, never)
         
 
 
-    def executeSingleMove(self, move):
+    def executeSingleMove(self, move, skipSave = False):
         print(move)
         
-        exec_func = ""
+        exec_func = ''
        
         #check if given input is default move value e.g R
         if move in self.MOVEVALUES:
             
-            self.cubeMovesString += f"'{move}',"
 
             exec_func = move
 
@@ -344,7 +382,9 @@ class CubixSecondStageListener(CubixListener):
             exec_func = "rotate_" + exec_func
             method = getattr(Cube, exec_func)
             method(self.cube)
-            self.appendCurrentCubeState()
+            if not skipSave:
+                self.cubeMovesString += f"'{move}',"
+                self.appendCurrentCubeState()
 
 
 
@@ -374,7 +414,7 @@ class CubixSecondStageListener(CubixListener):
     def exitIterationForI(self, ctx):
 
         timesKeyword = ctx.getText().find('times')
-        numOfIterations = ctx.getText()[4:timesKeyword]
+        numOfIterations = ctx.getText()[4:timesKeyword].lstrip().rstrip()
 
         if self.variableGet(numOfIterations) is not None:
             numOfIterations = self.variableGet(numOfIterations)
