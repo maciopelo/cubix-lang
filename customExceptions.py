@@ -28,6 +28,11 @@ class FunctionExistsException(Exception):
         self.msg = f"Function of name '{name}' has been already declared!"
         super().__init__(self.msg)
 
+class BadKeywordUsageException(Exception):
+    def __init__(self,  name):
+        self.msg = f"Keyword '{name}' has been used in wrong context!"
+        super().__init__(self.msg)
+
 
 class InvalidVariableValueException(Exception):
     def __init__(self,  msg = "Invalid variable value"):

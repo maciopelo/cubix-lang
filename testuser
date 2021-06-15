@@ -1,0 +1,8 @@
+Cube: cube1 = cube("solved");
+
+Move: m3 = R;
+
+Algo: algo = [ R, m3];
+
+cube1.exec(algo, after_all);
+cube1.exec(L);

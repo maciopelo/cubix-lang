@@ -3,7 +3,7 @@ grammar cubix;
 
 
 // start: ((expression | show SEMICOLON)* cubeInitialization SEMICOLON (expression | statement)*)+ EOF ;
-start: (expression | statement | functionDeclaration)+ (show SEMICOLON)* EOF;
+start: (expression | statement | functionDeclaration | BlockComment| LineComment | Newline)+ (show SEMICOLON)* EOF;
 
 
 MOVEVALUE:      'R'  | 'R2'   | 'Rp'  | 'r'   | 'r2'  |  'rp' | 
@@ -35,15 +35,15 @@ FUNC: 'FUNC';
 Type: DOLLAR ( ALGO | NUM );
 
 
-LeftRoundBracket: '(' (Whitespace | Newline)*;
-RightRoundBracket: ')' (Whitespace | Newline)*;
-LeftSquareBracket: '[' (Whitespace | Newline)*;
-RightSquareBracket: ']' (Whitespace | Newline)*;
-LeftCurlyBracket: '{' (Whitespace | Newline)*;
-RightCurlyBracket: '}' (Whitespace | Newline)*;
+LeftRoundBracket: '(' ;
+RightRoundBracket: ')' ;
+LeftSquareBracket: '[' ;
+RightSquareBracket: ']' ;
+LeftCurlyBracket: '{' ;
+RightCurlyBracket: '}' ;
 
 
-COMMA: ',' (Whitespace | Newline)*;
+COMMA: ',' (Whitespace)*;
 SEMICOLON: ';' (Whitespace | Newline)*;
 DOT: '.';
 DOLLAR: '$';
@@ -63,9 +63,11 @@ IN: 'in';
 USING: 'using';
 BEGIN: 'begin';
 END: 'end';
+AFTERALL: 'after_all';
+NEVER: 'never';
 
-Whitespace: [ \t]+ -> skip;
-Newline: ('\r' '\n'? | '\n') -> skip;
+Whitespace: [ \t]+;
+Newline: ('\r' '\n'? | '\n');
 
 BlockComment: '|@' .*? '@|' -> skip;
 LineComment: '||' ~ [\r\n]* -> skip;
@@ -79,18 +81,18 @@ NUMBER: [1-9] [0-9]*;
 /* ----------------------- */
 
 
-statement: (algorithmExecution | iterationForI | iterationForEach | show | functionExecution) SEMICOLON;
+statement: (algorithmExecution | iterationForI | iterationForEach | show | functionExecution) (Whitespace)* SEMICOLON;
 
 
-algorithmExecution: VariableName DOT EXEC LeftRoundBracket (VariableName | MOVEVALUE) (COMMA NUMBER)? RightRoundBracket;
+algorithmExecution: VariableName DOT EXEC (Whitespace)* LeftRoundBracket (Whitespace)* (VariableName | MOVEVALUE) (Whitespace)* (COMMA (Whitespace)* (AFTERALL|NEVER))? (Whitespace)* RightRoundBracket;
 
-show: SHOW LeftRoundBracket (VariableName) RightRoundBracket;
+show: SHOW (Whitespace)* LeftRoundBracket (Whitespace)* (VariableName) (Whitespace)* RightRoundBracket;
 
 loop: (iterationForI | iterationForEach);
 
-iterationForI: LOOP (NUMBER | VariableName) TIMES LeftCurlyBracket (algorithmExecution | show | loop | cubeInitialization | algorithmInitalization | numberInitalization | settingInitalization | moveInitalization | arrayInitalization) (PLUS (algorithmExecution | show | loop | cubeInitialization | algorithmInitalization | numberInitalization | settingInitalization | moveInitalization | arrayInitalization))* RightCurlyBracket;
+iterationForI: LOOP (Whitespace)* (NUMBER | VariableName) (Whitespace)* TIMES (Whitespace|Newline)* LeftCurlyBracket (Whitespace|Newline)* (algorithmExecution | show | loop | cubeInitialization | algorithmInitalization | numberInitalization | settingInitalization | moveInitalization | arrayInitalization) (Whitespace)* (PLUS (Whitespace|Newline)*(algorithmExecution | show | loop | cubeInitialization | algorithmInitalization | numberInitalization | settingInitalization | moveInitalization | arrayInitalization)(Whitespace|Newline)* )* (Whitespace|Newline)* RightCurlyBracket;
 
-iterationForEach: LOOP IN VariableName USING VariableName LeftCurlyBracket (algorithmExecution | show | loop | cubeInitialization | algorithmInitalization | numberInitalization | settingInitalization | moveInitalization | arrayInitalization) (PLUS (algorithmExecution | show | loop | cubeInitialization | algorithmInitalization | numberInitalization | settingInitalization | moveInitalization | arrayInitalization))* RightCurlyBracket;
+iterationForEach: LOOP IN VariableName USING VariableName (Whitespace|Newline)* LeftCurlyBracket (Whitespace|Newline)* (algorithmExecution | show | loop | cubeInitialization | algorithmInitalization | numberInitalization | settingInitalization | moveInitalization | arrayInitalization) (Whitespace)* (PLUS (Whitespace|Newline)*(algorithmExecution | show | loop | cubeInitialization | algorithmInitalization | numberInitalization | settingInitalization | moveInitalization | arrayInitalization) (Whitespace|Newline)* )* (Whitespace|Newline)* RightCurlyBracket;
 
 functionExecution: VariableName ( ('<' (VariableName COMMA)* VariableName '>') || ('<' '>') );
 
@@ -101,17 +103,17 @@ functionExecution: VariableName ( ('<' (VariableName COMMA)* VariableName '>') |
 expression: (cubeInitialization | algorithmInitalization | numberInitalization | settingInitalization | moveInitalization | arrayInitalization) SEMICOLON;
 
 
-cubeInitialization: CUBE COLON VariableName ASSIGN CubeValue;
+cubeInitialization: CUBE (Whitespace)* COLON (Whitespace)* VariableName (Whitespace)* ASSIGN (Whitespace)* CubeValue;
 
-algorithmInitalization: ALGO COLON VariableName ASSIGN AAValue;
+algorithmInitalization: ALGO (Whitespace)* COLON (Whitespace)* VariableName (Whitespace)* ASSIGN (Whitespace)* AAValue;
 
-numberInitalization: NUM COLON VariableName ASSIGN (NUMBER | VariableName);
+numberInitalization: NUM (Whitespace)* COLON (Whitespace)* VariableName (Whitespace)* ASSIGN (Whitespace)* (NUMBER | VariableName);
 
-settingInitalization: SETTING COLON VariableName ASSIGN SettingValue;
+settingInitalization: SETTING (Whitespace)* COLON (Whitespace)* VariableName (Whitespace)* ASSIGN (Whitespace|Newline)* SettingValue;
 
-moveInitalization: MOVE COLON VariableName ASSIGN (MOVEVALUE | VariableName);
+moveInitalization: MOVE (Whitespace)* COLON (Whitespace)* VariableName (Whitespace)* ASSIGN (Whitespace)* (MOVEVALUE | VariableName);
 
-arrayInitalization: ARRAY LeftRoundBracket Type RightRoundBracket COLON VariableName ASSIGN AAValue;
+arrayInitalization: ARRAY (Whitespace)* LeftRoundBracket (Whitespace)* Type (Whitespace)* RightRoundBracket (Whitespace)* COLON (Whitespace)* VariableName (Whitespace)*ASSIGN (Whitespace)* AAValue;
 
 functionDeclaration: FUNC VariableName ( ('<' (VariableName COMMA)* VariableName '>') | ('<' '>') ) BEGIN (statement | expression)+ END;
 
@@ -120,16 +122,16 @@ functionDeclaration: FUNC VariableName ( ('<' (VariableName COMMA)* VariableName
 /* ----------------------- */
 
 
-SettingValue: LeftSquareBracket Wall SEMICOLON Wall SEMICOLON Wall SEMICOLON Wall SEMICOLON Wall SEMICOLON Wall RightSquareBracket; 
+SettingValue: LeftSquareBracket (Whitespace|Newline)* Wall SEMICOLON Wall SEMICOLON Wall SEMICOLON Wall SEMICOLON Wall SEMICOLON Wall (Whitespace|Newline)* RightSquareBracket; 
 
 // AlgorithmValue: LeftSquareBracket (VariableName COMMA | MOVEVALUE COMMA)* ((VariableName | MOVEVALUE) Whitespace*) RightSquareBracket;
 
 // ArrayValue: LeftSquareBracket (VariableName COMMA | NUMBER COMMA)* (VariableName | NUMBER) RightSquareBracket;
 
-AAValue: LeftSquareBracket (VariableName COMMA | NUMBER COMMA | MOVEVALUE COMMA)* ((VariableName | NUMBER | MOVEVALUE)Whitespace*) RightSquareBracket;
+AAValue: LeftSquareBracket (Whitespace)* ((VariableName | NUMBER | MOVEVALUE) (Whitespace)* COMMA)* (Whitespace)* ((VariableName | NUMBER | MOVEVALUE) Whitespace*) RightSquareBracket;
 
-CubeValue: CUBECONSTRUCTOR LeftRoundBracket ( MIXED | (MIXED COMMA (NUMBER | VariableName)) | SOLVED | VariableName ) RightRoundBracket;
+CubeValue: CUBECONSTRUCTOR  (Whitespace)* LeftRoundBracket (Whitespace)* ( MIXED | (MIXED (Whitespace)* COMMA (Whitespace)* (NUMBER | VariableName)) | SOLVED | VariableName )(Whitespace)* RightRoundBracket;
 
-Wall: COLOR ASSIGN LeftCurlyBracket COLOR COMMA COLOR COMMA COLOR COMMA COLOR COMMA COLOR COMMA COLOR COMMA COLOR COMMA COLOR RightCurlyBracket;
+Wall: COLOR (Whitespace)* ASSIGN (Whitespace)* LeftCurlyBracket (Whitespace)*COLOR COMMA COLOR COMMA COLOR COMMA COLOR COMMA COLOR COMMA COLOR COMMA COLOR COMMA COLOR (Whitespace)* RightCurlyBracket;
 
 
