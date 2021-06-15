@@ -5,6 +5,7 @@ from x3domCube import solvedCube
 from customExceptions import *
 from cube import Cube
 import random
+from cubixParser import cubixParser
 
 
 
@@ -46,6 +47,8 @@ class CubixSecondStageListener(CubixListener):
             self.cubeMovesString = self.cubeMovesString[:-1] + "];"
         self.cubeStatesString = self.cubeStatesString[:-1] + "];"
         self.output.write(self.prepareJavascript())
+        # print(self.variablesDictionaries)
+
 
     
     def prepareJavascript(self):
@@ -181,6 +184,9 @@ class CubixSecondStageListener(CubixListener):
 
                         if foundVarNameVal in self.MOVEVALUES: 
                             tmpArr.append(foundVarNameVal)
+                        elif isinstance(foundVarNameVal,list):
+                            for move in foundVarNameVal:
+                                tmpArr.append(move)
                         else:
                             raise InvalidVariableValueException()
                             
@@ -261,7 +267,7 @@ class CubixSecondStageListener(CubixListener):
 
                     else:
                         raise VariableNotExistsException(item)
-        print(tmpArr)
+        
         
         self.assignVariable(arrName,tmpArr)
             
@@ -302,7 +308,7 @@ class CubixSecondStageListener(CubixListener):
 
 
         _input = (ctx[10:])[1:-1].lstrip().rstrip()
-        #print(_input)
+
         #check if given input is move value variable e.g. move1
         if self.variableGet(_input) is not None:
 
@@ -326,8 +332,7 @@ class CubixSecondStageListener(CubixListener):
 
 
     def executeSingleMove(self, move):
-        print(move)
-        
+
         exec_func = ""
        
         #check if given input is default move value e.g R
@@ -371,36 +376,119 @@ class CubixSecondStageListener(CubixListener):
             print(f"Function {funcName} has been executed") # PLACEMENT
     
 
-    def exitIterationForI(self, ctx):
+    def exitIterationForI(self, ctx, skipFst=False):
 
-        timesKeyword = ctx.getText().find('times')
-        numOfIterations = ctx.getText()[4:timesKeyword]
+        if isinstance(ctx,str):
+            timesKeyword = ctx.find('times')
+            numOfIterations = ctx[4:timesKeyword]
+        else:
+            timesKeyword = ctx.getText().find('times')
+            numOfIterations = ctx.getText()[4:timesKeyword]
 
+
+        bodyOfLoop = {
+            "algoithmsExecs" : ctx.algorithmExecution(),
+            "shows" : ctx.show(),
+            "loops" : ctx.loop(),
+            "algoInits": ctx.algorithmInitalization(),
+            "numberInits": ctx.numberInitalization(),
+            "moveInits": ctx.moveInitalization(),
+            "arrayInits": ctx.arrayInitalization(),
+        }
+
+        
         if self.variableGet(numOfIterations) is not None:
             numOfIterations = self.variableGet(numOfIterations)
         
-        bodyOfLoop = ctx.getText()[timesKeyword+len("times")+1:].replace("\n","").replace("\t","").replace(" ","")[:-1].split("+")
 
-        # only cube.exec(...) hanled 
-        for i in range(int(numOfIterations)-1):
-            for instruction in bodyOfLoop:
-                self.enterAlgorithmExecution(instruction)
+        loopInc = int(numOfIterations)-1
+        
+        if skipFst is True:
+            loopInc = int(numOfIterations)
 
+
+            for j in range(1):
+ 
+                for key in bodyOfLoop.keys():
+                    typeOfExpr = bodyOfLoop[key]
+                    if len(typeOfExpr) > 0:
+                        for expr in typeOfExpr:
+
+                            if skipFst is True:
+                                if key == "algoInits":
+                                    self.enterAlgorithmInitalization(expr)
+                                
+                                if key == "numberInits":
+                                    self.enterNumberInitalization(expr)
+
+                                if key == "moveInits":
+                                    self.enterMoveInitalization(expr)
+
+                                if key == "arrayInits":
+                                    self.enterArrayInitalization(expr)
+                            
+    
+        
+        for i in range(loopInc):
+
+            for key in bodyOfLoop.keys():
+                typeOfExpr = bodyOfLoop[key]
+                if len(typeOfExpr) > 0:
+                    for expr in typeOfExpr:
+
+
+                        if key == "algoithmsExecs":
+   
+                            self.enterAlgorithmExecution(expr)
+                        
+                        if key == "shows":
+                            self.enterShow(expr)
+
+                        if key == "loops":
+
+                            self.enterLoop(expr)
+
+                            if expr.iterationForI() is not None:
+                                self.exitIterationForI(expr.iterationForI(), True)
+
+                            if expr.iterationForEach() is not None:
+                                pass
+
+                            self.exitLoop(expr)
 
 
     def exitIterationForEach(self, ctx):
-        print(ctx.getText())
+        pass
+
+        # if isinstance(ctx,str):
+        #     usingKeyword = ctx.find('using')
+        #     objectToLoopThrough = ctx[6:usingKeyword]
+        #     openBracket = ctx.find('{')
+        #     iterator = ctx[usingKeyword+len('using'):]
+        # else:
+        #     usingKeyword = ctx.getText().find('using')
+        #     objectToLoopThrough = ctx.getText()[6:usingKeyword]
+        #     openBracket = ctx.getText().find('{')
+        #     iterator = ctx.getText()[usingKeyword+len('using'):openBracket]
+
+        
+        # bodyOfLoop = {
+        #     "algoithmsExecs" : ctx.algorithmExecution(),
+        #     "shows" : ctx.show(),
+        #     "loops" : ctx.loop(),
+        # }
+        
 
 
     def enterLoop(self, ctx):
         self.variablesDictionaries.append({})
-
-
-    def exitLoop(self, ctx):
-        x =  self.variablesDictionaries.pop()
         
 
 
+    def exitLoop(self, ctx):
+        self.variablesDictionaries.pop()
+
+        
 
     def assignVariable(self, name, value):
         if( not isinstance(value, list) and not isinstance(value, dict) and self.variableExist(value)):

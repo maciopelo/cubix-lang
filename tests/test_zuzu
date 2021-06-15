@@ -1,0 +1,64 @@
+|@
+Setting: sett1 = [
+
+    red={red,yellow,red,yellow,yellow,red,yellow,red};
+    green={green,  green,green,green,green,green,green,green};
+    blue={blue,   blue,  blue,blue,blue,blue,blue,blue};
+    
+    yellow={yellow,yellow,yellow,yellow,yellow,yellow,yellow,yellow};
+    white={white,white,white,white,white,white,white,white};
+    orange={orange,orange,orange,orange,orange,orange,orange,orange }
+    ];
+
+@|
+
+Num: num1 = 2;
+
+Cube: cube1 = cube("solved");
+
+|| Cube: cube1 = cube("mixed", num1);
+|| Cube: cube1 = cube(sett1);
+|| Cube: cube1 = cube("mixed");
+
+
+Move: move1 = Rp;
+
+Algo: algos1 = [R, move1];
+
+|| Algo: algos2 = [R, Rp, algos1];
+
+
+Array($Num): arr1 = [1,2,3,num1];
+
+
+Algo: algo1 = [R, U, Rp, Up];
+
+
+
+Num: num_of_repeats = 2;
+
+loop num_of_repeats times {
+
+    Move: m = R +
+    Algo: alg = [F] + 
+    
+    cube1.exec(m) +
+    cube1.exec(alg) +
+    Num: n_loop = 2 +
+
+    loop n_loop times {
+        
+
+        Algo: algos2 = [R, Rp, algos1] +
+        cube1.exec(algos2)
+  
+
+    }
+    
+};
+
+
+
+
+
+

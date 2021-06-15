@@ -1,0 +1,29 @@
+
+Cube: cube1 = cube("solved");
+
+Algo: algo1 = [R, U, Rp, Up];
+
+
+Num: num_of_repeats = 1;
+
+loop num_of_repeats times {
+
+    Move: m = R +
+    Algo: alg = [F] + 
+    
+    cube1.exec(m) +
+    cube1.exec(alg) +
+    Num: n_loop = 1 +
+
+    loop n_loop times {
+        
+        Move: m1 = B +
+        Algo: alg1 = [Bp] +
+        Algo: algo2 = [R, m1, alg1] +
+
+        cube1.exec(algo1)
+  
+
+    }
+    
+};

@@ -18,6 +18,75 @@ initial_html = """
         <x3d width='1100px' height='700px'> 
             <scene>
 
+    <style>
+
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Mono';
+        }
+
+        body{
+            background-color:lightgrey;
+        }
+
+        .langTitle{
+            padding: 10px 10px;
+        }
+
+        .container{
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+        }
+        .moves-wrapper{
+            display:flex;
+            margin-left: auto;
+            margin-right: auto;
+            width:400px;
+            justify-content:space-between;
+        }
+
+
+        #prevMoveSpan, #nextMoveSpan{
+            margin:5px;
+            font-size:24px;
+        }
+
+        .buttons-wrapper{
+            display:flex;
+            justify-content:center;
+        }
+
+        #prevMoveBtn, #nextMoveBtn{
+            padding:20px;
+            margin:10px;
+            background-color: rgb(180, 173, 173);
+            border: 2px solid black;
+            outline: none;
+            border-radius:10px
+        }
+
+        #prevMoveBtn:hover, #nextMoveBtn:hover{
+            cursor: pointer;
+            box-shadow: 0px 0px 10px black;
+        }
+
+
+        #prevMoveBtn:disabled, #nextMoveBtn:disabled{
+            cursor: default;
+            box-shadow: none;
+            border: 2px solid rgb(95, 93, 93);
+            color:rgb(95, 93, 93);
+        }
+    
+    
+    </style>
+
+
+
 """
 
 colors_initialization = """

@@ -1,0 +1,18 @@
+Cube: cube1 = cube("solved");
+
+
+Algo: algo1 = [R, Rp];
+Algo: algo2 = [B, algo1];
+
+
+Array($Algo): arr1 = [algo1, algo2];
+
+loop in arr1 using item { 
+
+    cube1.exec(item)
+
+};
+
+
+
+
